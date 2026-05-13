@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { CursorDot } from "@/components/motion/cursor-dot";
 import { RouteProgress } from "@/components/site/route-progress";
+import { KonamiEgg } from "@/components/motion/konami";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -68,7 +69,11 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/logos/aist_logo_png/favicon-512.png", type: "image/png", sizes: "512x512" },
+      { url: "/logos/aist_logo_png/aist-mark.png", type: "image/png" },
+    ],
+    apple: "/logos/aist_logo_png/favicon-512.png",
   },
 };
 
@@ -106,6 +111,7 @@ export default function RootLayout({
             Skip to main content
           </a>
           <RouteProgress />
+          <KonamiEgg />
           <CursorDot />
           <SiteHeader />
           <main id="main" className="relative">

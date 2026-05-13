@@ -35,7 +35,7 @@ export function MobileNav() {
           <DialogTitle>Navigation</DialogTitle>
         </VisuallyHidden>
         <div className="flex items-center justify-between border-b border-[var(--color-border)] p-4">
-          <Logo variant="wordmark" />
+          <Logo variant="horizontal" />
           <ThemeToggle />
         </div>
         <nav className="flex flex-col gap-1 p-4">
