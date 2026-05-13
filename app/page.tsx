@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, FlaskConical, Users, BookOpen } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 
@@ -16,12 +15,16 @@ import { Magnetic } from "@/components/motion/magnetic";
 import { ScrambleCounter } from "@/components/motion/scramble-counter";
 import { PhaseWheel } from "@/components/lab/phase-wheel";
 import { FeaturedProjects } from "@/components/lab/featured-projects";
+import { TeamCard } from "@/components/lab/team-card";
+import { CollaboratorCard } from "@/components/lab/collaborator-card";
 import { GlossaryTerm } from "@/components/site/glossary-term";
+import { CircuitDivider } from "@/components/site/circuit-divider";
 import { siteConfig } from "@/lib/site-config";
 import { stats } from "@/lib/stats";
+import { team } from "@/lib/team";
+import { collaborators } from "@/lib/collaborators";
 import { mockNews } from "@/lib/mock-news";
 import { mockEvents } from "@/lib/mock-events";
-import { mockTeam } from "@/lib/mock-team";
 import { formatDateShort } from "@/lib/utils";
 
 export default function HomePage() {
@@ -30,16 +33,18 @@ export default function HomePage() {
       {/* Fixed scroll progress bar — above everything */}
       <ScrollProgress />
 
+      {/* SECTION_NAV — add <SectionNav items={[...]} /> here if a single-page nav is needed */}
+
       <Hero />
 
       <Section code="01" label="Mission" id="mission">
         <MissionStatement />
       </Section>
 
-      <div className="hairline mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
+      <CircuitDivider />
 
       <Section code="02" label="Surgical journey" id="surgical-journey">
-        <Reveal>
+        <Reveal showMark>
           <p className="eyebrow mb-4">The surgical journey</p>
           <h2 className="font-display mb-12 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl">
             Four phases. One continuous arc of intelligent care.
@@ -48,10 +53,10 @@ export default function HomePage() {
         <PhaseWheel />
       </Section>
 
-      <div className="hairline mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
+      <CircuitDivider />
 
       <Section code="03" label="Projects" id="projects">
-        <Reveal>
+        <Reveal showMark>
           <p className="eyebrow mb-4">Active projects</p>
           <h2 className="font-display mb-12 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl">
             Built for the clinical frontier.
@@ -60,25 +65,25 @@ export default function HomePage() {
         <FeaturedProjects />
       </Section>
 
-      <div className="hairline mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
+      <CircuitDivider />
 
       <Section code="04" label="By the numbers" id="numbers">
         <NumbersStrip />
       </Section>
 
-      <div className="hairline mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
+      <CircuitDivider />
 
       <Section code="05" label="From the lab" id="from-the-lab">
         <FromTheLab />
       </Section>
 
-      <div className="hairline mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
+      <CircuitDivider />
 
       <Section code="06" label="Team" id="team">
         <TeamPreview />
       </Section>
 
-      <div className="hairline mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" />
+      <CircuitDivider />
 
       <Section code="07" label="Collaborators" id="collaborators">
         <CollaboratorsStrip />
@@ -136,14 +141,20 @@ function Hero() {
         {/* Logo lockup — scroll-driven scale */}
         <motion.div
           style={{ scale: logoScale }}
-          className="mt-12 flex justify-center"
+          className="relative mt-16 flex justify-center pb-4 pt-4"
         >
+          {/* Radial glow ring behind the logo */}
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-[0.08] blur-[80px] dark:opacity-[0.12]"
+            style={{ background: "radial-gradient(ellipse at center, #1e88e5 0%, transparent 70%)" }}
+            aria-hidden="true"
+          />
           <Logo
             variant="full"
             animated
             priority
-            sizes="(max-width: 640px) 320px, 480px"
-            className="max-w-[480px]"
+            sizes="(max-width: 640px) 280px, 420px"
+            className="max-w-[420px] [filter:drop-shadow(0_8px_32px_rgba(30,136,229,0.15))] dark:[filter:drop-shadow(0_8px_32px_rgba(30,136,229,0.22))]"
           />
         </motion.div>
 
@@ -313,6 +324,8 @@ function FromTheLab() {
 /* ── Team preview ────────────────────────────────────────────────────────── */
 
 function TeamPreview() {
+  const featured = team.filter((m) => m.featured).sort((a, b) => a.order - b.order);
+
   return (
     <>
       <div className="mb-8 flex items-center justify-between">
@@ -327,28 +340,9 @@ function TeamPreview() {
         </Link>
       </div>
 
-      {/* Horizontal scroller */}
-      <div className="flex gap-4 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {mockTeam.map((member) => (
-          <div
-            key={member.id}
-            className="flex w-40 flex-shrink-0 flex-col items-center gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-4 text-center"
-          >
-            {/* Avatar placeholder */}
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-muted)]">
-              <span className="font-display text-xl font-semibold text-[var(--color-muted-foreground)]">
-                {member.name.charAt(0)}
-              </span>
-            </div>
-            <div>
-              <p className="text-sm font-semibold leading-tight text-[var(--color-foreground)]">
-                {member.name}
-              </p>
-              <p className="mt-0.5 text-[11px] leading-tight text-[var(--color-muted-foreground)]">
-                {member.role}
-              </p>
-            </div>
-          </div>
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {featured.map((member) => (
+          <TeamCard key={member.slug} member={member} />
         ))}
       </div>
     </>
@@ -357,42 +351,17 @@ function TeamPreview() {
 
 /* ── Collaborators ───────────────────────────────────────────────────────── */
 
-const collaborators = [
-  { name: "Mayo Clinic", logoSrc: "/logos/mayo-clinic.svg" },
-  { name: "Partner logo", logoSrc: null },
-  { name: "Partner logo", logoSrc: null },
-  { name: "Partner logo", logoSrc: null },
-  { name: "Partner logo", logoSrc: null },
-  { name: "Partner logo", logoSrc: null },
-];
-
 function CollaboratorsStrip() {
+  const featured = collaborators.filter((c) => c.featured).sort((a, b) => a.order - b.order);
+
   return (
     <>
-      <Reveal>
+      <Reveal showMark>
         <p className="eyebrow mb-8">Collaborating institutions</p>
       </Reveal>
-      <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
-        {collaborators.map((c, i) => (
-          <div
-            key={i}
-            className="flex h-16 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2"
-          >
-            {c.logoSrc ? (
-              <Image
-                src={c.logoSrc}
-                alt={c.name}
-                width={100}
-                height={32}
-                loading="lazy"
-                className="h-8 w-auto opacity-70 dark:invert dark:opacity-50"
-              />
-            ) : (
-              <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
-                {c.name}
-              </span>
-            )}
-          </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {featured.map((c) => (
+          <CollaboratorCard key={c.slug} collaborator={c} />
         ))}
       </div>
     </>

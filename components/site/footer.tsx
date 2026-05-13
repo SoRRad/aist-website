@@ -1,8 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Github, Linkedin, Twitter, Mail, Rss } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { footerNav } from "@/lib/navigation";
-import { Logo } from "@/components/site/logo";
 
 export function SiteFooter() {
   return (
@@ -30,8 +30,8 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-12 md:grid-cols-5">
           <div className="col-span-2">
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <Logo className="h-9 w-9" />
-              <span className="font-display text-2xl tracking-tight">AIST</span>
+              <Image src="/logos/aist-mark.png" alt="AIST logo mark" width={36} height={36} className="h-9 w-9" />
+              <span className="font-display text-[1.5rem] tracking-tight">AIST</span>
             </Link>
             <p className="mt-4 max-w-sm font-display text-xl font-semibold leading-tight text-[var(--color-foreground)]" style={{ letterSpacing: "-0.03em" }}>
               Where the scalpel meets the algorithm.
