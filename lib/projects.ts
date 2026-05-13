@@ -1,37 +1,53 @@
 export type ProjectStatus = "concept" | "development" | "validation" | "clinical" | "deployed";
+export type SurgicalPhase = "pre-operative" | "intra-operative" | "post-operative" | "validation";
 
-export interface Project {
-  id: string;
+export type Project = {
+  slug: string;
   name: string;
-  fullName: string;
+  longName: string;
   tagline: string;
   description: string;
   status: ProjectStatus;
-  phases: string[];
-  lead?: string;
-}
+  phases: SurgicalPhase[];
+  liveUrl: string;
+  githubUrl?: string;
+  team: string[];
+  collaborators: string[];
+  featured?: boolean;
+  order: number;
+  // TODO Step 4: approach, results, roadmap, etc.
+};
 
 export const projects: Project[] = [
   {
-    id: "mosi",
+    slug: "mosi",
     name: "MOSI",
-    fullName: "Metabolic & Obesity Surgery Intelligence",
-    tagline: "Stratifying risk before the patient ever enters the OR.",
+    longName: "Metabolic & Obesity Staging Index",
+    tagline: "Decision support and prospective validation for bariatric surgery.",
     description:
-      "A clinical decision-support system that integrates pre-operative patient data — BMI trajectory, comorbidity burden, lab values, and imaging — to predict surgical risk, expected outcomes, and optimal timing for metabolic and bariatric procedures.",
+      "A staging algorithm and clinical audit platform for bariatric surgery, validated on 3,097 patients. MOSI scores patients across BMI, comorbidities, and severity to recommend procedures and target weight-loss tiers.",
     status: "validation",
-    phases: ["pre", "post", "validation"],
-    lead: "Hojjat Salehinejad",
+    phases: ["pre-operative", "post-operative", "validation"],
+    liveUrl: "https://sorrad.github.io/MOSI-System/",
+    githubUrl: "https://github.com/SoRRad/MOSI-System",
+    team: ["simon-laplante", "reza-shahriarirad", "abdulrahman-alomar"],
+    collaborators: ["mayo-clinic-mars"],
+    featured: true,
+    order: 1,
   },
   {
-    id: "siris",
+    slug: "siris",
     name: "SIRIS",
-    fullName: "Surgical Intelligence & Recognition in Interventional Scenes",
-    tagline: "Understanding what is happening at every moment in the OR.",
+    longName: "Surgical-IRIS Education",
+    tagline: "AI-powered surgical patient education built on Mayo Clinic's IRIS platform.",
     description:
-      "A computer vision platform for real-time surgical phase recognition, instrument detection, and anatomical landmark identification. Built on transformer-based video models trained across procedure types.",
-    status: "development",
-    phases: ["intra", "post"],
-    lead: "Reza Shahriarirad",
+      "SIRIS helps patients ask specialty-focused education questions, review Mayo Clinic resources, and prepare questions for their care team — bridging the information gap between booking and operation.",
+    status: "deployed",
+    phases: ["pre-operative", "post-operative"],
+    liveUrl: "https://siris-1029209978489.us-central1.run.app",
+    team: ["reza-shahriarirad"],
+    collaborators: ["mayo-clinic-mars"],
+    featured: true,
+    order: 2,
   },
 ];

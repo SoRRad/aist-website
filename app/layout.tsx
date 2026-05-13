@@ -4,6 +4,7 @@ import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { CursorDot } from "@/components/motion/cursor-dot";
+import { RouteProgress } from "@/components/site/route-progress";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -87,7 +88,16 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${sans.variable} ${mono.variable} ${display.variable}`}
     >
-      <body className="relative min-h-screen overflow-x-hidden font-sans antialiased">
+      <head>
+        {/* Anti-flash: apply theme class before React hydrates to prevent FOUC */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.add('light');document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark');document.documentElement.classList.remove('light')}}catch(e){}})()`,
+          }}
+        />
+      </head>
+      {/* suppressHydrationWarning silences browser-extension attribute injections (e.g. Grammarly) */}
+      <body suppressHydrationWarning className="relative min-h-screen overflow-x-hidden font-sans antialiased">
         <Providers>
           <a
             href="#main"
@@ -95,6 +105,7 @@ export default function RootLayout({
           >
             Skip to main content
           </a>
+          <RouteProgress />
           <CursorDot />
           <SiteHeader />
           <main id="main" className="relative">

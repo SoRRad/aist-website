@@ -8,7 +8,7 @@ export interface Phase {
 
 export const phases: Phase[] = [
   {
-    id: "pre",
+    id: "pre-operative",
     code: "01",
     title: "Pre-operative",
     description:
@@ -16,7 +16,7 @@ export const phases: Phase[] = [
     projects: ["mosi"],
   },
   {
-    id: "intra",
+    id: "intra-operative",
     code: "02",
     title: "Intra-operative",
     description:
@@ -24,7 +24,7 @@ export const phases: Phase[] = [
     projects: [],
   },
   {
-    id: "post",
+    id: "post-operative",
     code: "03",
     title: "Post-operative",
     description:
