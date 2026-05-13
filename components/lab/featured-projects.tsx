@@ -6,8 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { projects } from "@/lib/projects";
 import { phases } from "@/lib/phases";
-import { statusBadgeVariants, statusLabels } from "@/lib/status";
-import { cn } from "@/lib/utils";
+import { StatusPipeline } from "@/components/lab/status-pipeline";
 
 /**
  * Featured project cards for MOSI and SIRIS.
@@ -41,9 +40,7 @@ export function FeaturedProjects() {
               {/* Left: text */}
               <div className="flex-1 space-y-4">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className={cn(statusBadgeVariants({ status: project.status }))}>
-                    {statusLabels[project.status]}
-                  </span>
+                  <StatusPipeline status={project.status} />
                   {projectPhases.map((p) => (
                     <span
                       key={p.id}

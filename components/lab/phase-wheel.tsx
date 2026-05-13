@@ -5,13 +5,14 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { phases } from "@/lib/phases";
+import { logos } from "@/lib/logos";
 
 /* ── SVG geometry ── */
 const CX = 200;
 const CY = 200;
 const R_OUTER = 170;
 const R_INNER = 70;
-const GAP_DEG = 4; /* gap between quadrants */
+const GAP_DEG = 4;
 
 function polarToCartesian(cx: number, cy: number, r: number, angleDeg: number) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
@@ -19,12 +20,9 @@ function polarToCartesian(cx: number, cy: number, r: number, angleDeg: number) {
 }
 
 function quadrantPath(
-  cx: number,
-  cy: number,
-  rOuter: number,
-  rInner: number,
-  startAngle: number,
-  endAngle: number,
+  cx: number, cy: number,
+  rOuter: number, rInner: number,
+  startAngle: number, endAngle: number,
 ): string {
   const o1 = polarToCartesian(cx, cy, rOuter, startAngle);
   const o2 = polarToCartesian(cx, cy, rOuter, endAngle);
@@ -39,7 +37,6 @@ function quadrantPath(
   ].join(" ");
 }
 
-/* Each quadrant occupies 90° with a small gap on each side */
 const QUADS = phases.map((phase, i) => {
   const base = i * 90;
   return {
@@ -50,35 +47,32 @@ const QUADS = phases.map((phase, i) => {
   };
 });
 
-/* Label position on the middle of the arc */
 function labelPos(cx: number, cy: number, r: number, angleDeg: number) {
   return polarToCartesian(cx, cy, r, angleDeg);
 }
 
 /**
  * Interactive surgical phase wheel.
- *
- * SVG-based radial diagram. Each quadrant represents one phase of the surgical
- * journey. Clicking/hovering activates a quadrant and reveals its content panel.
- * Keyboard: arrow keys cycle quadrants, Enter confirms.
+ * Rotates 90° per selection so the active phase always points to 12 o'clock.
+ * Labels counter-rotate to remain upright.
+ * Spring: stiffness 80, damping 18 — calm, not jittery.
  */
 export function PhaseWheel() {
   const [activeIdx, setActiveIdx] = useState(0);
 
-  const handleKey = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-        e.preventDefault();
-        setActiveIdx((i) => (i + 1) % phases.length);
-      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-        e.preventDefault();
-        setActiveIdx((i) => (i - 1 + phases.length) % phases.length);
-      }
-    },
-    [],
-  );
+  const handleKey = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIdx((i) => (i + 1) % phases.length);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIdx((i) => (i - 1 + phases.length) % phases.length);
+    }
+  }, []);
 
   const activePhase = phases[activeIdx];
+  // Rotate the wheel so the active quadrant sits at 12 o'clock
+  const wheelRotation = -activeIdx * 90;
 
   return (
     <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
@@ -92,10 +86,10 @@ export function PhaseWheel() {
           tabIndex={0}
           onKeyDown={handleKey}
         >
-          {/* Wheel rotation container */}
+          {/* Wheel group rotates; labels counter-rotate to stay upright */}
           <motion.g
-            animate={{ rotate: activeIdx * -5 }}
-            transition={{ type: "spring", stiffness: 160, damping: 22 }}
+            animate={{ rotate: wheelRotation }}
+            transition={{ type: "spring", stiffness: 80, damping: 18 }}
             style={{ originX: "200px", originY: "200px" }}
           >
             {QUADS.map(({ phase, startAngle, endAngle, labelAngle }, i) => {
@@ -116,54 +110,54 @@ export function PhaseWheel() {
                     fill={active ? "var(--color-accent)" : "transparent"}
                     stroke={active ? "var(--color-accent)" : "var(--color-border)"}
                     strokeWidth={active ? 1.5 : 1}
-                    animate={{
-                      fillOpacity: active ? 0.12 : 0.04,
-                      strokeOpacity: active ? 1 : 0.4,
-                    }}
+                    animate={{ fillOpacity: active ? 0.15 : 0.04, strokeOpacity: active ? 1 : 0.4 }}
                     transition={{ duration: 0.3 }}
-                    className="transition-colors"
                   />
-                  {/* Code label */}
-                  <text
-                    x={lp.x}
-                    y={lp.y - 8}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    className="font-mono"
-                    style={{
-                      fontSize: 10,
-                      fill: active ? "var(--color-accent)" : "var(--color-muted-foreground)",
-                      fontFamily: "var(--font-mono)",
-                      fontWeight: 500,
-                      letterSpacing: "0.1em",
-                    }}
+                  {/* Labels counter-rotate so they remain legible */}
+                  <motion.g
+                    animate={{ rotate: -wheelRotation }}
+                    transition={{ type: "spring", stiffness: 80, damping: 18 }}
+                    style={{ originX: `${lp.x}px`, originY: `${lp.y}px` }}
                   >
-                    {phase.code}
-                  </text>
-                  {/* Phase name label */}
-                  <text
-                    x={lp.x}
-                    y={lp.y + 8}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    style={{
-                      fontSize: 9,
-                      fill: active ? "var(--color-foreground)" : "var(--color-muted-foreground)",
-                      fontFamily: "var(--font-sans)",
-                      fontWeight: active ? 600 : 400,
-                    }}
-                  >
-                    {phase.title.split("-").join("-​")}
-                  </text>
+                    <text
+                      x={lp.x}
+                      y={lp.y - 8}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      style={{
+                        fontSize: 10,
+                        fill: active ? "var(--color-accent)" : "var(--color-muted-foreground)",
+                        fontFamily: "var(--font-mono)",
+                        fontWeight: 500,
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      {phase.code}
+                    </text>
+                    <text
+                      x={lp.x}
+                      y={lp.y + 8}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      style={{
+                        fontSize: 8,
+                        fill: active ? "var(--color-foreground)" : "var(--color-muted-foreground)",
+                        fontFamily: "var(--font-sans)",
+                        fontWeight: active ? 600 : 400,
+                      }}
+                    >
+                      {phase.title.length > 18 ? phase.title.slice(0, 16) + "…" : phase.title}
+                    </text>
+                  </motion.g>
                 </g>
               );
             })}
           </motion.g>
 
-          {/* Center mark */}
+          {/* Center — transparent mark, no white box */}
           <circle cx={CX} cy={CY} r={R_INNER - 4} fill="var(--color-card)" />
           <image
-            href="/logos/aist-mark.png"
+            href={logos.markNeutral}
             x={CX - 30}
             y={CY - 30}
             width={60}
@@ -183,9 +177,7 @@ export function PhaseWheel() {
             exit={{ opacity: 0, x: -8 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="eyebrow mb-3">
-              Phase {activePhase.code} / {activePhase.title}
-            </p>
+            <p className="eyebrow mb-3">Phase {activePhase.code} / {activePhase.title}</p>
             <h3 className="font-display mb-4 text-2xl font-semibold tracking-tight lg:text-3xl">
               {activePhase.title}
             </h3>
@@ -196,7 +188,7 @@ export function PhaseWheel() {
             {activePhase.projects.length > 0 && (
               <div className="mt-6">
                 <p className="mb-3 text-xs font-medium uppercase tracking-widest text-[var(--color-muted-foreground)]">
-                  Active projects in this phase
+                  Projects in this phase
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {activePhase.projects.map((slug) => (
@@ -211,12 +203,6 @@ export function PhaseWheel() {
                   ))}
                 </div>
               </div>
-            )}
-
-            {activePhase.projects.length === 0 && (
-              <p className="mt-6 text-sm italic text-[var(--color-muted-foreground)]">
-                No active projects yet — this phase is targeted for Step 3.
-              </p>
             )}
           </motion.div>
         </AnimatePresence>

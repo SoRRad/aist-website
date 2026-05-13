@@ -1,5 +1,9 @@
 export type ProjectStatus = "concept" | "development" | "validation" | "clinical" | "deployed";
-export type SurgicalPhase = "pre-operative" | "intra-operative" | "post-operative" | "validation";
+export type SurgicalPhase =
+  | "risk-stratification"
+  | "intra-op-intelligence"
+  | "patient-journey"
+  | "outcomes-validation";
 
 export type Project = {
   slug: string;
@@ -15,7 +19,8 @@ export type Project = {
   collaborators: string[];
   featured?: boolean;
   order: number;
-  // TODO Step 4: approach, results, roadmap, etc.
+  lastUpdated?: string;
+  // TODO Step 5: approach, results, roadmap, demo content
 };
 
 export const projects: Project[] = [
@@ -27,13 +32,14 @@ export const projects: Project[] = [
     description:
       "A staging algorithm and clinical audit platform for bariatric surgery, validated on 3,097 patients. MOSI scores patients across BMI, comorbidities, and severity to recommend procedures and target weight-loss tiers.",
     status: "validation",
-    phases: ["pre-operative", "post-operative", "validation"],
+    phases: ["risk-stratification", "outcomes-validation"],
     liveUrl: "https://sorrad.github.io/MOSI-System/",
     githubUrl: "https://github.com/SoRRad/MOSI-System",
     team: ["simon-laplante", "reza-shahriarirad", "abdulrahman-alomar"],
     collaborators: ["mayo-clinic-mars"],
     featured: true,
     order: 1,
+    lastUpdated: "2026-04-01",
   },
   {
     slug: "siris",
@@ -43,11 +49,12 @@ export const projects: Project[] = [
     description:
       "SIRIS helps patients ask specialty-focused education questions, review Mayo Clinic resources, and prepare questions for their care team — bridging the information gap between booking and operation.",
     status: "deployed",
-    phases: ["pre-operative", "post-operative"],
+    phases: ["patient-journey"],
     liveUrl: "https://siris-1029209978489.us-central1.run.app",
     team: ["reza-shahriarirad"],
     collaborators: ["mayo-clinic-mars"],
     featured: true,
     order: 2,
+    lastUpdated: "2026-04-01",
   },
 ];

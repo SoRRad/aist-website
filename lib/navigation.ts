@@ -18,23 +18,25 @@ export type NavItem = {
   href: string;
   description?: string;
   icon?: LucideIcon;
+  /** Section id on the home page for smart anchor scrolling */
+  sectionId?: string;
 };
 
 /**
  * Primary navigation shown in the header.
- * Keep this list short — five to seven items max for clean scanning.
+ * "Projects" is merged into "Research" — both scroll to #research on the home page.
  */
 export const primaryNav: NavItem[] = [
-  { title: "Research", href: "/research", icon: Compass },
-  { title: "Projects", href: "/projects", icon: FlaskConical },
-  { title: "Team", href: "/team", icon: Users },
-  { title: "Publications", href: "/publications", icon: FileText },
-  { title: "News", href: "/news", icon: Newspaper },
-  { title: "Join", href: "/join", icon: UserPlus },
+  { title: "Research", href: "/research", icon: Compass, sectionId: "research" },
+  { title: "Projects", href: "/projects", icon: FlaskConical, sectionId: "research" },
+  { title: "Team", href: "/team", icon: Users, sectionId: "team" },
+  { title: "Publications", href: "/publications", icon: FileText, sectionId: "publications" },
+  { title: "News", href: "/news", icon: Newspaper, sectionId: "news" },
+  { title: "Join", href: "/join", icon: UserPlus, sectionId: "join" },
 ];
 
 /**
- * Full navigation — used in the command palette and footer.
+ * Full navigation — used in command palette, mobile nav, footer.
  */
 export const allNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
@@ -51,9 +53,6 @@ export const allNav: NavItem[] = [
   { title: "Contact", href: "/contact", icon: Mail },
 ];
 
-/**
- * Footer link groups.
- */
 export const footerNav = {
   research: [
     { title: "Research focus", href: "/research" },

@@ -12,24 +12,7 @@ export interface Stat {
 }
 
 export const stats: Stat[] = [
-  {
-    value: 3097,
-    label: "Patients",
-    sublabel: "in derivation cohort",
-  },
-  {
-    value: 12,
-    label: "Publications",
-    sublabel: "peer-reviewed",
-  },
-  {
-    value: 2,
-    label: "Active projects",
-    sublabel: "MOSI & SIRIS",
-  },
-  {
-    value: 2,
-    label: "Institutions",
-    sublabel: "collaborating",
-  },
+  { value: 7, label: "Team members", sublabel: "Across research and engineering" },
+  { value: 2, label: "Active projects", sublabel: "MOSI and SIRIS" },
+  { value: 3, label: "Publications", sublabel: "Peer-reviewed journals" },
 ];

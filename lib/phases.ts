@@ -8,35 +8,35 @@ export interface Phase {
 
 export const phases: Phase[] = [
   {
-    id: "pre-operative",
+    id: "risk-stratification",
     code: "01",
-    title: "Pre-operative",
+    title: "Risk Stratification & Planning",
     description:
-      "AI-assisted planning before the patient enters the OR — anatomical segmentation, 3D reconstruction, risk stratification, and patient-specific surgical mapping.",
+      "Pre-operative risk assessment, candidate identification, and surgical decision support driven by validated algorithms.",
     projects: ["mosi"],
   },
   {
-    id: "intra-operative",
+    id: "intra-op-intelligence",
     code: "02",
-    title: "Intra-operative",
+    title: "Intra-operative Intelligence",
     description:
-      "Real-time decision support during surgery — anatomy recognition, Go/No-Go zone delineation, phase recognition, and instrument tracking.",
+      "Real-time anatomy recognition, surgical phase detection, and Go/No-Go zone guidance for the operating theatre.",
     projects: [],
   },
   {
-    id: "post-operative",
+    id: "patient-journey",
     code: "03",
-    title: "Post-operative",
+    title: "Patient Journey & Education",
     description:
-      "Outcome prediction, recovery monitoring, complication risk modeling, and patient-facing education tailored to the individual surgical record.",
-    projects: ["mosi", "siris"],
+      "AI-powered surgical patient education, visit preparation, and care-team communication.",
+    projects: ["siris"],
   },
   {
-    id: "validation",
+    id: "outcomes-validation",
     code: "04",
-    title: "Validation",
+    title: "Outcomes & Validation",
     description:
-      "Rigorous external testing across independent cohorts before clinical deployment — the standard that separates research prototypes from trusted tools.",
+      "Prospective external validation of surgical AI, real-world outcomes analysis, and clinical trial readiness.",
     projects: ["mosi"],
   },
 ];
