@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
+import { CursorDot } from "@/components/motion/cursor-dot";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -18,10 +19,11 @@ const mono = Geist_Mono({
   display: "swap",
 });
 
-const serif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const display = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
-  weight: "400",
+  /* Variable font — axes enable optical size and width variation.
+   * Weight range is controlled by the axes; do not specify static weights. */
   display: "swap",
 });
 
@@ -72,7 +74,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
-    { media: "(prefers-color-scheme: dark)", color: "#050d20" },
+    { media: "(prefers-color-scheme: dark)", color: "#061632" },
   ],
 };
 
@@ -83,7 +85,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${sans.variable} ${mono.variable} ${serif.variable}`}
+      className={`${sans.variable} ${mono.variable} ${display.variable}`}
     >
       <body className="relative min-h-screen overflow-x-hidden font-sans antialiased">
         <Providers>
@@ -93,6 +95,7 @@ export default function RootLayout({
           >
             Skip to main content
           </a>
+          <CursorDot />
           <SiteHeader />
           <main id="main" className="relative">
             {children}

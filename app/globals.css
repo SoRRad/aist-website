@@ -21,8 +21,9 @@
   --color-navy-600: #1f3f7f;
   --color-navy-700: #162f60;
   --color-navy-800: #0f2349;
-  --color-navy-900: #0a1a3a;
+  --color-navy-900: #061632;
   --color-navy-950: #050d20;
+  --color-navy-1000: #03091a;
 
   --color-blue-50: #e7f3fe;
   --color-blue-100: #c2dffd;
@@ -75,7 +76,7 @@
   --color-status-deployed: #10b981;
 
   /* Typography */
-  --font-display: "Instrument Serif", "Iowan Old Style", "Palatino", serif;
+  --font-display: var(--font-bricolage), "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "Geist Mono", ui-monospace, "SF Mono", "Menlo", monospace;
 
@@ -107,7 +108,7 @@
  * ------------------------------------------------------------------------- */
 
 .dark {
-  --color-background: var(--color-navy-950);
+  --color-background: #061632;
   --color-foreground: var(--color-ink-100);
   --color-muted: var(--color-navy-800);
   --color-muted-foreground: var(--color-ink-400);
@@ -145,13 +146,13 @@
       "calt" 1;
   }
 
-  /* Display type — Instrument Serif gets a tighter optical setting */
+  /* Display type — Bricolage Grotesque: architectural, tight, confident */
   .font-display,
   h1.display,
   h2.display {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
     line-height: 1;
   }
 
@@ -256,6 +257,33 @@
     stroke-dasharray: var(--draw-length, 1000);
     stroke-dashoffset: var(--draw-length, 1000);
     animation: stroke-draw 1.6s var(--ease-out-soft) forwards;
+  }
+
+  /* Logo glow ring — subtle pulse behind the header mark on hover */
+  @keyframes logo-glow-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px transparent, 0 0 12px 2px rgb(30 136 229 / 0); }
+    50% { box-shadow: 0 0 0 2px rgb(30 136 229 / 0.15), 0 0 20px 4px rgb(30 136 229 / 0.12); }
+  }
+
+  .animate-logo-glow {
+    background: radial-gradient(circle, rgb(30 136 229 / 0.15) 0%, transparent 70%);
+    animation: logo-glow-pulse 2.4s var(--ease-in-out-soft) infinite;
+  }
+
+  /* Logo entrance — scale-in + fade-in for PNG logo on mount */
+  @keyframes logo-entrance {
+    from {
+      opacity: 0;
+      transform: scale(0.94);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-logo-entrance {
+    animation: logo-entrance 600ms var(--ease-out-soft) both;
   }
 
   /* Grid background — used as a backdrop on hero, very subtle */

@@ -5,7 +5,7 @@
 
 export const siteConfig = {
   name: "AIST",
-  fullName: "Artificial Intelligence & Surgical Technology",
+  fullName: "Artificial Intelligence in Surgical Technologies",
   tagline: "Intelligence at every phase of surgical care.",
   description:
     "AIST is a research lab advancing artificial intelligence across the full surgical journey — pre-operative planning, intra-operative guidance, post-operative recovery, and external validation of surgical AI.",

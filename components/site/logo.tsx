@@ -1,105 +1,116 @@
+"use client";
+
+import Image from "next/image";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
-  variant?: "mark" | "wordmark";
+  /** "mark" = icon only (aist-mark.png), "full" = full lockup PNG, "wordmark" = mark + "AIST" text */
+  variant?: "mark" | "wordmark" | "full";
   animated?: boolean;
+  priority?: boolean;
+  sizes?: string;
 }
 
 /**
- * AIST logo component.
+ * AIST logo component — PNG-based with theme-aware light/dark swapping.
  *
- * - "mark" renders just the scalpel-meets-circuit icon
- * - "wordmark" renders the icon + "AIST" type lockup
+ * Variants:
+ *   mark      — aist-mark.png (icon only, default)
+ *   wordmark  — aist-mark.png + "AIST" text in display font
+ *   full      — aist-full-{dark|light}.png (full lockup with tagline)
  *
- * Uses currentColor for the dark fill so the logo adapts to the parent's
- * text color in dark mode without needing a separate asset.
+ * The "animated" prop applies a CSS scale-in + fade-in entrance (600ms ease-out).
+ * Hydration-safe: renders nothing until mounted to avoid theme flicker.
  */
-export function Logo({ className, variant = "mark", animated = false }: LogoProps) {
+export function Logo({
+  className,
+  variant = "mark",
+  animated = false,
+  priority = false,
+  sizes,
+}: LogoProps) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  const isDark = mounted ? resolvedTheme === "dark" : true;
+
+  if (variant === "full") {
+    return (
+      <div
+        className={cn(
+          "relative",
+          animated && "animate-logo-entrance",
+          className,
+        )}
+      >
+        {mounted ? (
+          <Image
+            src={isDark ? "/logos/aist-full-dark.png" : "/logos/aist-full-light.png"}
+            alt="AIST — Artificial Intelligence in Surgical Technologies"
+            width={480}
+            height={240}
+            priority={priority}
+            sizes={sizes ?? "(max-width: 640px) 320px, 480px"}
+            className="h-auto w-full"
+          />
+        ) : (
+          /* Placeholder during SSR to reserve layout space */
+          <div className="h-[240px] w-[480px] max-w-full" aria-hidden="true" />
+        )}
+      </div>
+    );
+  }
+
   if (variant === "wordmark") {
     return (
-      <div className={cn("flex items-center gap-3", className)}>
-        <LogoMark animated={animated} className="h-8 w-8 shrink-0" />
+      <div
+        className={cn(
+          "flex items-center gap-3",
+          animated && "animate-logo-entrance",
+          className,
+        )}
+      >
+        <MarkImage mounted={mounted} priority={priority} className="h-8 w-8 shrink-0" />
         <span className="font-display text-2xl tracking-tight">AIST</span>
       </div>
     );
   }
-  return <LogoMark animated={animated} className={className} />;
+
+  /* Default: mark */
+  return (
+    <MarkImage
+      mounted={mounted}
+      priority={priority}
+      className={cn(animated && "animate-logo-entrance", className)}
+    />
+  );
 }
 
-function LogoMark({ animated, className }: { animated?: boolean; className?: string }) {
+function MarkImage({
+  mounted,
+  priority,
+  className,
+}: {
+  mounted: boolean;
+  priority?: boolean;
+  className?: string;
+}) {
+  if (!mounted) {
+    return <div className={cn("rounded-sm bg-transparent", className)} aria-hidden="true" />;
+  }
   return (
-    <svg
-      viewBox="0 0 200 200"
-      fill="none"
-      role="img"
-      aria-label="AIST logo"
-      className={cn("text-navy-900 dark:text-ink-100", className)}
-    >
-      {/* Scalpel / teardrop — dark fill */}
-      <path
-        d="M100 12 C 60 60, 50 110, 60 145 C 70 175, 90 188, 100 188 L 100 12 Z"
-        fill="currentColor"
-      />
-      {/* Scalpel highlight lines */}
-      <line x1="100" y1="50" x2="100" y2="170" stroke="#FFFFFF" strokeOpacity="0.18" strokeWidth="2" />
-      <line x1="92" y1="160" x2="108" y2="160" stroke="#FFFFFF" strokeOpacity="0.3" strokeWidth="1.5" />
-      <line x1="92" y1="166" x2="108" y2="166" stroke="#FFFFFF" strokeOpacity="0.3" strokeWidth="1.5" />
-
-      {/* Circuit tree — electric blue, optionally animated */}
-      <g
-        stroke="var(--color-blue-500)"
-        strokeWidth="2"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M100 30 L 100 188" strokeOpacity="0.25" />
-        <path
-          d="M100 60 L 130 60 L 145 50"
-          className={animated ? "animate-stroke-draw" : ""}
-          style={{ "--draw-length": "70" } as React.CSSProperties}
-        />
-        <path
-          d="M100 80 L 140 80 L 160 70"
-          className={animated ? "animate-stroke-draw" : ""}
-          style={{ "--draw-length": "90", animationDelay: "0.1s" } as React.CSSProperties}
-        />
-        <path
-          d="M100 100 L 150 100 L 170 92"
-          className={animated ? "animate-stroke-draw" : ""}
-          style={{ "--draw-length": "100", animationDelay: "0.2s" } as React.CSSProperties}
-        />
-        <path
-          d="M100 120 L 145 120 L 165 130"
-          className={animated ? "animate-stroke-draw" : ""}
-          style={{ "--draw-length": "100", animationDelay: "0.3s" } as React.CSSProperties}
-        />
-        <path
-          d="M100 140 L 135 140 L 150 155"
-          className={animated ? "animate-stroke-draw" : ""}
-          style={{ "--draw-length": "90", animationDelay: "0.4s" } as React.CSSProperties}
-        />
-        <path
-          d="M100 158 L 125 158 L 138 170"
-          className={animated ? "animate-stroke-draw" : ""}
-          style={{ "--draw-length": "80", animationDelay: "0.5s" } as React.CSSProperties}
-        />
-      </g>
-      <g fill="var(--color-blue-500)">
-        <circle cx="145" cy="50" r="3.5" />
-        <circle cx="160" cy="70" r="3.5" />
-        <circle cx="170" cy="92" r="3.5" />
-        <circle cx="165" cy="130" r="3.5" />
-        <circle cx="150" cy="155" r="3.5" />
-        <circle cx="138" cy="170" r="3.5" />
-        <circle cx="130" cy="60" r="2.5" />
-        <circle cx="140" cy="80" r="2.5" />
-        <circle cx="150" cy="100" r="2.5" />
-        <circle cx="145" cy="120" r="2.5" />
-        <circle cx="135" cy="140" r="2.5" />
-        <circle cx="125" cy="158" r="2.5" />
-      </g>
-    </svg>
+    <Image
+      src="/logos/aist-mark.png"
+      alt="AIST logo mark"
+      width={80}
+      height={80}
+      priority={priority}
+      className={cn("h-auto w-auto", className)}
+    />
   );
 }
