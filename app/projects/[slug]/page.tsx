@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowUpRight, Github, ChevronDown, Mail } from "lucide-react";
+// ArrowUpRight kept for liveUrl/github CTAs in header
 import type { Metadata } from "next";
 import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
@@ -11,6 +12,7 @@ import { StatusPipeline } from "@/components/lab/status-pipeline";
 import { PlayingCard } from "@/components/lab/playing-card";
 import { CollaboratorCard } from "@/components/lab/collaborator-card";
 import { ContentPlaceholder } from "@/components/lab/content-placeholder";
+import { PublicationCard } from "@/components/publications/publication-card";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { mosiContent } from "@/content/projects/mosi";
@@ -207,26 +209,19 @@ export default async function ProjectPage({
         {/* ── 12. Related Publications ── */}
         {relatedPubs.length > 0 && (
           <ScientificSection eyebrow="Related Publications" title="Research outputs">
-            <ul className="space-y-4">
+            <div className="space-y-4">
               {relatedPubs.map((pub) => (
-                <li key={pub.slug} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-4">
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
-                    {pub.venue} · {pub.year}
-                  </p>
-                  <p className="mt-1.5 text-sm font-medium leading-snug text-[var(--color-foreground)]">
-                    {pub.title}
-                  </p>
-                  <a
-                    href={pub.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline"
-                  >
-                    View paper <ArrowUpRight className="h-3 w-3" />
-                  </a>
-                </li>
+                <PublicationCard key={pub.slug} publication={pub} />
               ))}
-            </ul>
+            </div>
+            <div className="mt-4">
+              <Link
+                href={`/publications?project=${slug}`}
+                className="text-sm font-medium text-[var(--color-accent)] hover:underline"
+              >
+                View all publications →
+              </Link>
+            </div>
           </ScientificSection>
         )}
 

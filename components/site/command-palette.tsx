@@ -53,14 +53,16 @@ const corpus: SearchResult[] = [
     href: `/team/${m.slug}`,
     meta: { affiliation: m.affiliation },
   })),
-  ...publications.map((p) => ({
-    id: `pub-${p.slug}`,
-    kind: "publication" as ResultKind,
-    title: p.title,
-    subtitle: `${p.venue} · ${p.year}`,
-    href: p.url,
-    meta: { year: String(p.year) },
-  })),
+  ...publications
+    .filter((p) => p.url)
+    .map((p) => ({
+      id: `pub-${p.slug}`,
+      kind: "publication" as ResultKind,
+      title: p.title,
+      subtitle: `${p.venue} · ${p.year}`,
+      href: p.url as string,
+      meta: { year: String(p.year) },
+    })),
 ];
 
 const fuse = new Fuse(corpus, {
