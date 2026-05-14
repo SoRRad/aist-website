@@ -15,7 +15,6 @@ import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { mosiContent } from "@/content/projects/mosi";
 import { sirisContent } from "@/content/projects/siris";
-import { cn } from "@/lib/utils";
 
 /* map slug → content object */
 const contentMap: Record<string, typeof mosiContent> = {

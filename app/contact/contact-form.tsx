@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v4";
@@ -96,9 +97,9 @@ export function ContactForm() {
         <p className="max-w-md text-sm leading-relaxed text-[var(--color-muted-foreground)]">
           Thank you for reaching out. We aim to respond within 3–5 business days.
           In the meantime, you can explore our{" "}
-          <a href="/projects" className="text-[var(--color-accent)] hover:underline">projects</a>{" "}
+          <Link href="/projects" className="text-[var(--color-accent)] hover:underline">projects</Link>{" "}
           or read our{" "}
-          <a href="/publications" className="text-[var(--color-accent)] hover:underline">publications</a>.
+          <Link href="/publications" className="text-[var(--color-accent)] hover:underline">publications</Link>.
         </p>
       </div>
     );
