@@ -5,7 +5,6 @@ import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { CursorDot } from "@/components/motion/cursor-dot";
 import { RouteProgress } from "@/components/site/route-progress";
-import { KonamiEgg } from "@/components/motion/konami";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -111,7 +110,6 @@ export default function RootLayout({
             Skip to main content
           </a>
           <RouteProgress />
-          <KonamiEgg />
           <CursorDot />
           <SiteHeader />
           <main id="main" className="relative">

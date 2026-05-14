@@ -4,12 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import * as React from "react";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "motion/react";
 import { primaryNav } from "@/lib/navigation";
 import { phases } from "@/lib/phases";
 import { projects } from "@/lib/projects";
 import { logos } from "@/lib/logos";
+import { Logo } from "@/components/site/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CommandPalette } from "@/components/site/command-palette";
 import { MobileNav } from "@/components/site/mobile-nav";
@@ -18,10 +18,6 @@ import { cn } from "@/lib/utils";
 export function SiteHeader() {
   const [scrolled, setScrolled] = React.useState(false);
   const pathname = usePathname();
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => setMounted(true), []);
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
@@ -29,8 +25,6 @@ export function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const isDark = mounted ? resolvedTheme === "dark" : true;
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
@@ -49,30 +43,17 @@ export function SiteHeader() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           {/* Logo — horizontal lockup on md+, mark-only on mobile */}
           <Link href="/" aria-label="AIST home" className="shrink-0">
-            {mounted ? (
-              <>
-                {/* Desktop: horizontal lockup */}
-                <Image
-                  src={isDark ? logos.fullHorizontalDark : logos.fullHorizontalLight}
-                  alt="AIST"
-                  width={160}
-                  height={40}
-                  priority
-                  className="hidden h-9 w-auto sm:block"
-                />
-                {/* Mobile: mark only */}
-                <Image
-                  src={logos.markNeutral}
-                  alt="AIST"
-                  width={36}
-                  height={36}
-                  priority
-                  className="block h-9 w-auto sm:hidden"
-                />
-              </>
-            ) : (
-              <div className="h-9 w-36" aria-hidden="true" />
-            )}
+            {/* Desktop: horizontal lockup */}
+            <Logo variant="horizontal" priority width={160} height={40} className="hidden sm:block h-9 w-auto" />
+            {/* Mobile: mark only */}
+            <Image
+              src={logos.markNeutral}
+              alt="AIST"
+              width={36}
+              height={36}
+              priority
+              className="block h-9 w-auto sm:hidden"
+            />
           </Link>
 
           {/* Primary nav */}

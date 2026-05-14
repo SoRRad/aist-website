@@ -1,24 +1,20 @@
-"use client";
-
 import Image from "next/image";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
-  /** mark = icon only | horizontal = wide lockup | stacked = vertical lockup (hero) */
   variant?: "mark" | "horizontal" | "stacked";
   animated?: boolean;
   priority?: boolean;
   sizes?: string;
+  width?: number;
+  height?: number;
 }
 
 /**
- * AIST logo component — thin wrapper around next/image.
- * Picks the correct transparent PNG from lib/logos.ts based on variant + theme.
- * Hydration-safe: renders a layout placeholder until mounted.
+ * AIST logo — renders both light and dark variants and lets CSS hide one.
+ * No useTheme(), no mounted check, no FOUC, fully SSR-correct.
  */
 export function Logo({
   className,
@@ -26,71 +22,54 @@ export function Logo({
   animated = false,
   priority = false,
   sizes,
+  width,
+  height,
 }: LogoProps) {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const sources = {
+    mark: { light: logos.markLight, dark: logos.markDark },
+    horizontal: { light: logos.fullHorizontalLight, dark: logos.fullHorizontalDark },
+    stacked: { light: logos.fullStackedLight, dark: logos.fullStackedDark },
+  };
 
-  useEffect(() => setMounted(true), []);
+  const dims = {
+    mark: { w: width ?? 80, h: height ?? 80 },
+    horizontal: { w: width ?? 200, h: height ?? 50 },
+    stacked: { w: width ?? 420, h: height ?? 210 },
+  }[variant];
 
-  const isDark = mounted ? resolvedTheme === "dark" : true;
+  const defaultSizes = {
+    mark: "80px",
+    horizontal: "200px",
+    stacked: "(max-width: 640px) 280px, 420px",
+  }[variant];
 
-  if (variant === "stacked") {
-    const src = isDark ? logos.fullStackedDark : logos.fullStackedLight;
-    return (
-      <div className={cn("relative", animated && "animate-logo-entrance", className)}>
-        {mounted ? (
-          <Image
-            src={src}
-            alt="AIST — Artificial Intelligence in Surgical Technologies"
-            width={420}
-            height={210}
-            priority={priority}
-            sizes={sizes ?? "(max-width: 640px) 280px, 420px"}
-            className="h-auto w-full"
-          />
-        ) : (
-          <div className="h-[210px] w-[420px] max-w-full" aria-hidden="true" />
-        )}
-      </div>
-    );
-  }
+  const { light, dark } = sources[variant];
+  const alt = variant === "mark" ? "AIST logo mark" : "AIST — Artificial Intelligence in Surgical Technologies";
+  const wrapClass = cn("relative", animated && "animate-logo-entrance", className);
 
-  if (variant === "horizontal") {
-    const src = isDark ? logos.fullHorizontalDark : logos.fullHorizontalLight;
-    return (
-      <div className={cn("relative", animated && "animate-logo-entrance", className)}>
-        {mounted ? (
-          <Image
-            src={src}
-            alt="AIST"
-            width={200}
-            height={50}
-            priority={priority}
-            sizes={sizes ?? "200px"}
-            className="h-auto w-full"
-          />
-        ) : (
-          <div className="h-10 w-40" aria-hidden="true" />
-        )}
-      </div>
-    );
-  }
-
-  // Default: mark
   return (
-    <div className={cn("relative", animated && "animate-logo-entrance", className)}>
-      {mounted ? (
-        <Image
-          src={isDark ? logos.markDark : logos.markLight}
-          alt="AIST logo mark"
-          width={80}
-          height={80}
-          priority={priority}
-          className="h-auto w-auto"
-        />
-      ) : (
-        <div className={cn("rounded-sm", className)} aria-hidden="true" />
-      )}
+    <div className={wrapClass}>
+      {/* Light mode variant */}
+      <Image
+        src={light}
+        alt={alt}
+        width={dims.w}
+        height={dims.h}
+        priority={priority}
+        sizes={sizes ?? defaultSizes}
+        className="block h-auto w-full dark:hidden"
+      />
+      {/* Dark mode variant */}
+      <Image
+        src={dark}
+        alt=""
+        aria-hidden="true"
+        width={dims.w}
+        height={dims.h}
+        priority={priority}
+        sizes={sizes ?? defaultSizes}
+        className="hidden h-auto w-full dark:block"
+      />
     </div>
   );
 }
