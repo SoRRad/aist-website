@@ -31,7 +31,7 @@ export function HeroSection() {
         {/* Logo lockup — scroll-driven scale */}
         <motion.div style={{ scale: logoScale }} className="relative mt-4 flex justify-center">
           <div
-            className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-[0.08] blur-[80px] dark:opacity-[0.14]"
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-0 blur-[80px] dark:opacity-[0.14]"
             style={{ background: "radial-gradient(ellipse at center, #1e88e5 0%, transparent 70%)" }}
             aria-hidden="true"
           />
@@ -40,7 +40,7 @@ export function HeroSection() {
             animated
             priority
             sizes="(max-width: 640px) 280px, 420px"
-            className="max-w-[420px] [filter:drop-shadow(0_8px_32px_rgba(30,136,229,0.15))] dark:[filter:drop-shadow(0_8px_32px_rgba(30,136,229,0.22))]"
+            className="max-w-[420px] dark:[filter:drop-shadow(0_8px_32px_rgba(30,136,229,0.22))]"
           />
         </motion.div>
 

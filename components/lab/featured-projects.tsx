@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { projects } from "@/lib/projects";
 import { phases } from "@/lib/phases";
 import { StatusPipeline } from "@/components/lab/status-pipeline";
+import { logos } from "@/lib/logos";
 
 /**
  * Featured project cards for MOSI and SIRIS.
@@ -28,7 +29,7 @@ export function FeaturedProjects() {
           >
             {/* Decorative background mark at very low opacity */}
             <Image
-              src="/logos/aist-mark.png"
+              src={logos.markNeutral}
               alt=""
               aria-hidden="true"
               width={120}
@@ -89,7 +90,7 @@ export function FeaturedProjects() {
               {/* Right: placeholder visual — becomes a micro-demo in Step 4 */}
               <div className="flex min-h-[180px] min-w-[240px] items-center justify-center rounded-lg border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-muted)] to-[var(--color-card)] lg:min-w-[280px]">
                 <Image
-                  src="/logos/aist-mark.png"
+                  src={logos.markNeutral}
                   alt=""
                   aria-hidden="true"
                   width={56}

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { projects } from "@/lib/projects";
 import { phases } from "@/lib/phases";
 import { StatusPipeline } from "@/components/lab/status-pipeline";
+import { logos } from "@/lib/logos";
 
 export const metadata = { title: "Projects" };
 
@@ -33,7 +34,7 @@ export default function ProjectsPage() {
             >
               {/* Background mark */}
               <Image
-                src="/logos/aist-mark.png"
+                src={logos.markNeutral}
                 alt=""
                 aria-hidden="true"
                 width={120}
