@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Stethoscope, Code2, GraduationCap } from "lucide-react";
+import { ArrowUpRight, Stethoscope, Code2, GraduationCap, FlaskConical, Globe, Users2, BookMarked } from "lucide-react";
 import { openings } from "@/lib/openings";
 import { Button } from "@/components/ui/button";
 import { formatDateShort } from "@/lib/utils";
@@ -27,6 +27,29 @@ const profiles = [
   },
 ];
 
+const whyAist = [
+  {
+    icon: FlaskConical,
+    title: "Translational research at Mayo",
+    description: "Work on problems that move directly from algorithm to operating room — within one of the world's highest-volume surgical centres.",
+  },
+  {
+    icon: Globe,
+    title: "Multimodal surgical AI",
+    description: "Build on rich data: 4K robotic video, pre-operative imaging, lab values, and outcomes — not toy datasets.",
+  },
+  {
+    icon: Users2,
+    title: "Mentorship from clinical and AI leaders",
+    description: "Our team spans surgeons, PhDs, and engineers. You will be mentored across both the clinical and technical dimensions of your work.",
+  },
+  {
+    icon: BookMarked,
+    title: "Publish, deploy, and validate",
+    description: "We don't stop at a preprint. Projects are validated prospectively and deployed in real workflows before we call them done.",
+  },
+];
+
 export default function JoinPage() {
   const activeOpenings = openings;
 
@@ -45,6 +68,24 @@ export default function JoinPage() {
           We recruit exceptional researchers and engineers who believe surgical AI should be
           validated, explainable, and clinically led — not just technically impressive.
         </p>
+      </div>
+
+      {/* Why AIST */}
+      <div className="mb-20">
+        <p className="eyebrow mb-6">Why AIST</p>
+        <div className="grid gap-5 sm:grid-cols-2">
+          {whyAist.map(({ icon: Icon, title, description }) => (
+            <div key={title} className="flex gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-muted)]">
+                <Icon className="h-4 w-4 text-[var(--color-accent)]" />
+              </div>
+              <div>
+                <h3 className="mb-1 font-semibold text-[var(--color-foreground)]">{title}</h3>
+                <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">{description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Open positions */}
@@ -107,7 +148,7 @@ export default function JoinPage() {
           Send a brief note about your background and what you&apos;re hoping to work on.
         </p>
         <Button asChild variant="outline">
-          <Link href="/contact">Get in touch</Link>
+          <Link href="/contact?inquiryType=position">Get in touch →</Link>
         </Button>
       </div>
     </section>

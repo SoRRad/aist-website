@@ -1,55 +1,64 @@
-import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
+import type { Metadata } from "next";
+import { ContactForm } from "./contact-form";
 
-export const metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Reach out to AIST for research collaboration, clinical partnerships, or general inquiries.",
+};
 
 export default function ContactPage() {
   return (
-    <section className="mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:px-8">
-      <p className="eyebrow mb-4">Get in touch</p>
-      <h1 className="font-display text-balance text-5xl font-semibold tracking-tight" style={{ letterSpacing: "-0.03em" }}>
-        Contact AIST.
-      </h1>
-      <p className="mt-6 text-lg leading-relaxed text-[var(--color-muted-foreground)]">
-        Research collaborations, media inquiries, and general questions welcome. A full contact form is coming in Step 6.
-      </p>
-      <div className="mt-12 flex flex-col gap-3 sm:flex-row">
-        <Link href="/join" className="inline-flex items-center gap-2 rounded-md border border-[var(--color-border)] bg-[var(--color-muted)] px-4 py-2.5 text-sm font-medium transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-foreground)]">
-          Open positions →
-        </Link>
-      </div>
-
-      {/* Institutional home */}
-      <div className="mt-16 border-t border-[var(--color-border)] pt-8">
-        <p className="eyebrow mb-3">Institutional home</p>
-        <address className="not-italic text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-          {siteConfig.institution.department}
-          <br />
-          {siteConfig.institution.name}
-          <br />
-          {siteConfig.institution.address}
-        </address>
-      </div>
-
-      {/* Press kit */}
-      <div className="mt-12 border-t border-[var(--color-border)] pt-8">
-        <p className="eyebrow mb-3">Press kit</p>
-        <p className="mb-4 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-          Logos, headshots, and boilerplate for press inquiries.
+    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+      <header className="mb-12">
+        <p className="eyebrow mb-4">Get in touch</p>
+        <h1
+          className="font-display text-balance text-5xl font-semibold tracking-tight"
+          style={{ letterSpacing: "-0.03em" }}
+        >
+          Contact AIST.
+        </h1>
+        <p className="mt-4 max-w-xl text-pretty text-lg leading-relaxed text-[var(--color-muted-foreground)]">
+          Research collaborations, clinical partnerships, media inquiries, and position interest welcome.
         </p>
-        <div className="flex flex-wrap gap-3">
-          {/* TODO: add real assets to /public/press/ */}
-          <a href="#" className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-border)] px-3 py-1.5 text-xs font-medium text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]">
-            Logo pack (.zip)
+      </header>
+
+      <ContactForm />
+
+      {/* Other ways to reach */}
+      <div className="mt-16 space-y-8 border-t border-[var(--color-border)] pt-12">
+        <div>
+          <p className="eyebrow mb-3">Email</p>
+          <a
+            href="mailto:contact@aist-lab.org"
+            className="text-base font-medium text-[var(--color-accent)] hover:underline"
+          >
+            contact@aist-lab.org
           </a>
-          <a href="#" className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-border)] px-3 py-1.5 text-xs font-medium text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]">
-            Team headshots (.zip)
-          </a>
-          <a href="#" className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-border)] px-3 py-1.5 text-xs font-medium text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]">
-            Boilerplate (.txt)
-          </a>
+          <p className="mt-1 text-sm text-[var(--color-muted-foreground)]">
+            General inquiries. Response within 3–5 business days.
+          </p>
+        </div>
+
+        <div>
+          <p className="eyebrow mb-3">Press inquiries</p>
+          <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+            For urgent press or media requests, select{" "}
+            <span className="font-medium text-[var(--color-foreground)]">Press / media</span>{" "}
+            in the form above and include your publication and deadline.
+          </p>
+        </div>
+
+        <div>
+          <p className="eyebrow mb-3">Institutional home</p>
+          <address className="not-italic text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+            Surgery Innovation Lab
+            <br />
+            Mayo Clinic
+            <br />
+            200 First Street SW, Rochester, MN 55905
+          </address>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
