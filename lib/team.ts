@@ -35,7 +35,7 @@ export const team: TeamMember[] = [
     affiliation: "Mayo Clinic",
     bio: "Principal investigator of AIST, with a focus on translational surgical AI and clinical decision support.",
     photo: "/team/simon-laplante.jpg",
-    initials: "SL",
+    initials: "S.L.",
     links: {
       profile: "https://www.mayoclinic.org/biographies/laplante-simon-j-m-d/bio-20573005",
     },
@@ -49,7 +49,7 @@ export const team: TeamMember[] = [
     affiliation: "Mayo Clinic",
     bio: "Leads the AI and machine learning research at AIST, spanning computer vision, deep learning, and generative models for surgery.",
     photo: "/team/hojjat-salehinejad.jpg",
-    initials: "HS",
+    initials: "H.S.",
     links: {},
     featured: true,
     order: 2,
@@ -61,7 +61,7 @@ export const team: TeamMember[] = [
     affiliation: "Mayo Clinic",
     bio: "Research fellow in Surgery Innovation, leading the development of MOSI and SIRIS platforms.",
     photo: "/team/reza-shahriarirad.jpg",
-    initials: "RS",
+    initials: "R.S.",
     links: {
       profile: "https://sorrad.github.io/RezaShahriarirad_CV/",
       github: "https://github.com/SoRRad",
@@ -76,7 +76,7 @@ export const team: TeamMember[] = [
     affiliation: "Mayo Clinic",
     bio: "Research fellow in the Department of Metabolic and Abdominal Wall Reconstructive Surgery.",
     photo: "/team/abdulrahman-alomar.jpg",
-    initials: "AA",
+    initials: "A.A.",
     links: {
       linkedin: "https://www.linkedin.com/in/abdulrahman-alomar-aba47a233/",
     },
@@ -90,7 +90,7 @@ export const team: TeamMember[] = [
     affiliation: "Mayo Clinic",
     bio: "Software and ML engineering across the AIST platform stack.",
     photo: "/team/intekhab-hossain.jpg",
-    initials: "IH",
+    initials: "I.H.",
     links: {},
     featured: true,
     order: 5,
@@ -102,7 +102,7 @@ export const team: TeamMember[] = [
     affiliation: "Mayo Clinic — MARS",
     bio: "Consultant bariatric and metabolic surgeon; clinical collaborator on MOSI.",
     photo: "/team/omar-ghanem.jpg",
-    initials: "OG",
+    initials: "O.G.",
     links: {
       profile: "https://www.mayoclinic.org/biographies/ghanem-omar-m-m-d/bio-20491179",
     },
@@ -116,7 +116,7 @@ export const team: TeamMember[] = [
     affiliation: "University Health Network — SARA Lab",
     bio: "Surgical AI collaborator; director of the SARA Lab at UHN, Toronto.",
     photo: "/team/amin-madani.jpg",
-    initials: "AM",
+    initials: "A.M.",
     links: {
       profile: "https://www.uhnresearch.ca/researcher/amin-madani",
     },

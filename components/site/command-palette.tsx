@@ -3,9 +3,8 @@
 import * as React from "react";
 import Fuse from "fuse.js";
 import { useRouter, usePathname } from "next/navigation";
-import { Search, Clock, Compass, FlaskConical, Users, FileText, ArrowRight } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { Search, Clock, Compass, FlaskConical, Users, FileText, ArrowRight, X } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { allNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
@@ -104,10 +103,11 @@ const GROUP_META: Record<ResultKind, { label: string; Icon: React.ElementType }>
 export function CommandPalette() {
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
-  const [activeId, setActiveId] = React.useState<string | null>(null);
+  const [expandedId, setExpandedId] = React.useState<string | null>(null);
   const [recent, setRecent] = React.useState<string[]>([]);
   const router = useRouter();
   const pathname = usePathname();
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   /* Record visit */
   React.useEffect(() => {
@@ -115,19 +115,21 @@ export function CommandPalette() {
     safeSetRecent([pathname, ...prev.filter((p) => p !== pathname)].slice(0, MAX_RECENT));
   }, [pathname]);
 
-  /* Load recent on open */
+  /* Load recent on open + focus input */
   React.useEffect(() => {
     if (open) {
       setRecent(safeGetRecent().filter((p) => p !== pathname));
       setQuery("");
-      setActiveId(null);
+      setExpandedId(null);
+      setTimeout(() => inputRef.current?.focus(), 60);
     }
   }, [open, pathname]);
 
-  /* Keyboard shortcut */
+  /* Keyboard shortcuts */
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); setOpen((o) => !o); }
+      if (e.key === "Escape") setOpen(false);
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
@@ -169,11 +171,9 @@ export function CommandPalette() {
     .map((href) => corpus.find((c) => c.href === href))
     .filter(Boolean) as SearchResult[];
 
-  /* Active item for preview */
-  const activeItem = activeId ? corpus.find((c) => c.id === activeId) : null;
-
   return (
     <>
+      {/* Trigger button */}
       <button
         onClick={() => setOpen(true)}
         aria-label="Search the site"
@@ -186,88 +186,109 @@ export function CommandPalette() {
         </kbd>
       </button>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl gap-0 overflow-hidden p-0" hideClose>
-          <VisuallyHidden asChild><DialogTitle>Site search</DialogTitle></VisuallyHidden>
-
-          {/* Search input */}
-          <div className="flex items-center gap-3 border-b border-[var(--color-border)] px-4">
-            <Search className="h-4 w-4 shrink-0 text-[var(--color-muted-foreground)]" />
-            <input
-              autoFocus
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search pages, projects, people, papers…"
-              className="h-12 flex-1 bg-transparent text-sm outline-none placeholder:text-[var(--color-muted-foreground)]"
+      {/* Drawer portal */}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
+              onClick={() => setOpen(false)}
+              aria-hidden="true"
             />
-            {filterKind && (
-              <span className="rounded-sm border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 px-2 py-0.5 font-mono text-[10px] uppercase text-[var(--color-accent)]">
-                {GROUP_META[filterKind].label}
-              </span>
-            )}
-          </div>
 
-          <div className="flex" style={{ height: 360 }}>
-            {/* Results list — 60% width */}
-            <div className="flex-[3] overflow-y-auto border-r border-[var(--color-border)] p-2">
-              {/* Empty state */}
-              {!query && recentItems.length === 0 && (
-                <EmptyState onChipClick={setQuery} />
-              )}
-
-              {/* Recently visited */}
-              {!query && recentItems.length > 0 && (
-                <ResultGroup
-                  label="Recently visited"
-                  Icon={Clock}
-                  items={recentItems}
-                  activeId={activeId}
-                  onHover={setActiveId}
-                  onSelect={go}
+            {/* Drawer panel */}
+            <motion.div
+              role="dialog"
+              aria-label="Site search"
+              aria-modal="true"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 340, damping: 32 }}
+              className="fixed right-0 top-0 z-50 flex h-full w-full flex-col border-l border-[var(--color-border)] bg-[var(--color-background)] shadow-2xl sm:w-[480px]"
+            >
+              {/* Header — logo + search input */}
+              <div className="flex shrink-0 items-center gap-3 border-b border-[var(--color-border)] px-4">
+                <Image src={logos.markNeutral} alt="AIST" width={20} height={20} className="h-5 w-5 shrink-0 opacity-60" />
+                <input
+                  ref={inputRef}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search pages, projects, people, papers…"
+                  className="h-14 flex-1 bg-transparent text-sm outline-none placeholder:text-[var(--color-muted-foreground)]"
                 />
-              )}
+                {filterKind && (
+                  <span className="rounded-sm border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 px-2 py-0.5 font-mono text-[10px] uppercase text-[var(--color-accent)]">
+                    {GROUP_META[filterKind].label}
+                  </span>
+                )}
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label="Close search"
+                  className="shrink-0 rounded-md p-1.5 text-[var(--color-muted-foreground)] transition-colors hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
 
-              {/* Grouped results */}
-              {(["page", "project", "team", "publication"] as ResultKind[]).map((kind) => {
-                const items = grouped.get(kind);
-                if (!items?.length) return null;
-                const { label, Icon } = GROUP_META[kind];
-                return (
+              {/* Results body — scrollable */}
+              <div className="flex-1 overflow-y-auto p-2">
+                {/* Empty state */}
+                {!query && recentItems.length === 0 && (
+                  <EmptyState onChipClick={setQuery} />
+                )}
+
+                {/* Recently visited */}
+                {!query && recentItems.length > 0 && (
                   <ResultGroup
-                    key={kind}
-                    label={label}
-                    Icon={Icon}
-                    items={items}
-                    activeId={activeId}
-                    onHover={setActiveId}
+                    label="Recently visited"
+                    Icon={Clock}
+                    items={recentItems}
+                    expandedId={expandedId}
+                    onToggle={(id) => setExpandedId(expandedId === id ? null : id)}
                     onSelect={go}
                   />
-                );
-              })}
+                )}
 
-              {query && results.length === 0 && (
-                <p className="p-6 text-center text-sm text-[var(--color-muted-foreground)]">No results found.</p>
-              )}
-            </div>
+                {/* Grouped results */}
+                {(["page", "project", "team", "publication"] as ResultKind[]).map((kind) => {
+                  const items = grouped.get(kind);
+                  if (!items?.length) return null;
+                  const { label, Icon } = GROUP_META[kind];
+                  return (
+                    <ResultGroup
+                      key={kind}
+                      label={label}
+                      Icon={Icon}
+                      items={items}
+                      expandedId={expandedId}
+                      onToggle={(id) => setExpandedId(expandedId === id ? null : id)}
+                      onSelect={go}
+                    />
+                  );
+                })}
 
-            {/* Preview pane — 40% width, hidden on mobile */}
-            <div className="hidden flex-[2] flex-col items-center justify-center p-6 md:flex">
-              <PreviewPane item={activeItem} />
-            </div>
-          </div>
+                {query && results.length === 0 && (
+                  <p className="p-6 text-center text-sm text-[var(--color-muted-foreground)]">No results found.</p>
+                )}
+              </div>
 
-          {/* Footer */}
-          <div className="flex items-center justify-between border-t border-[var(--color-border)] px-3 py-2 text-[10px] text-[var(--color-muted-foreground)]">
-            <span>
-              <kbd className="font-mono">↑↓</kbd> navigate ·{" "}
-              <kbd className="font-mono">↵</kbd> open ·{" "}
-              <kbd className="font-mono">esc</kbd> close ·{" "}
-              <kbd className="font-mono">⌘K</kbd> toggle
-            </span>
-            <span className="font-mono">AIST</span>
-          </div>
-        </DialogContent>
-      </Dialog>
+              {/* Footer — keyboard hints */}
+              <div className="shrink-0 border-t border-[var(--color-border)] px-4 py-2.5 text-[10px] text-[var(--color-muted-foreground)]">
+                <span className="font-mono">↵</span> open ·{" "}
+                <span className="font-mono">esc</span> close ·{" "}
+                <span className="font-mono">⌘K</span> toggle ·{" "}
+                <span className="opacity-50">/team /project /pub /page to filter</span>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }
@@ -278,79 +299,67 @@ function ResultGroup({
   label,
   Icon,
   items,
-  activeId,
-  onHover,
+  expandedId,
+  onToggle,
   onSelect,
 }: {
   label: string;
   Icon: React.ElementType;
   items: SearchResult[];
-  activeId: string | null;
-  onHover: (id: string) => void;
+  expandedId: string | null;
+  onToggle: (id: string) => void;
   onSelect: (href: string) => void;
 }) {
   return (
-    <div className="mb-2">
+    <div className="mb-3">
       <div className="flex items-center gap-1.5 px-2 py-1.5">
         <Icon className="h-3 w-3 text-[var(--color-muted-foreground)]" />
         <span className="eyebrow text-[9px]">{label}</span>
       </div>
-      {items.map((item) => (
-        <button
-          key={item.id}
-          onMouseEnter={() => onHover(item.id)}
-          onClick={() => onSelect(item.href)}
-          className={cn(
-            "flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-left text-sm transition-colors",
-            activeId === item.id
-              ? "bg-[var(--color-muted)] text-[var(--color-foreground)]"
-              : "text-[var(--color-foreground)] hover:bg-[var(--color-muted)]",
-          )}
-        >
-          <span className="flex-1 truncate">{item.title}</span>
-          {item.subtitle && (
-            <span className="shrink-0 truncate text-xs text-[var(--color-muted-foreground)]" style={{ maxWidth: 120 }}>
-              {item.subtitle}
-            </span>
-          )}
-          <ArrowRight className="h-3.5 w-3.5 shrink-0 opacity-40" />
-        </button>
-      ))}
-    </div>
-  );
-}
+      {items.map((item) => {
+        const isExpanded = expandedId === item.id;
+        return (
+          <div key={item.id}>
+            <button
+              onMouseEnter={() => onToggle(item.id)}
+              onClick={() => onSelect(item.href)}
+              className={cn(
+                "flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2.5 text-left transition-colors",
+                isExpanded
+                  ? "bg-[var(--color-muted)]"
+                  : "hover:bg-[var(--color-muted)]",
+              )}
+            >
+              <span className="flex-1 truncate text-sm text-[var(--color-foreground)]">{item.title}</span>
+              <ArrowRight className={cn("h-3.5 w-3.5 shrink-0 text-[var(--color-accent)] transition-opacity", isExpanded ? "opacity-100" : "opacity-30")} />
+            </button>
 
-/* ── Preview pane ── */
-
-function PreviewPane({ item }: { item: SearchResult | null | undefined }) {
-  if (!item) {
-    return (
-      <div className="flex flex-col items-center gap-3 text-center opacity-30">
-        <Image src={logos.markNeutral} alt="" width={40} height={40} className="h-10 w-10" />
-        <p className="text-xs text-[var(--color-muted-foreground)]">Hover a result to preview</p>
-      </div>
-    );
-  }
-
-  const { Icon } = GROUP_META[item.kind];
-
-  return (
-    <div className="w-full space-y-3">
-      <div className="flex items-center gap-2">
-        <Icon className="h-4 w-4 text-[var(--color-accent)]" />
-        <span className="eyebrow text-[9px] text-[var(--color-accent)]">{GROUP_META[item.kind].label}</span>
-      </div>
-      <p className="font-display text-base font-semibold leading-tight text-[var(--color-foreground)]">
-        {item.title}
-      </p>
-      {item.subtitle && (
-        <p className="text-xs leading-relaxed text-[var(--color-muted-foreground)]">{item.subtitle}</p>
-      )}
-      {item.meta && Object.entries(item.meta).map(([k, v]) => (
-        <p key={k} className="font-mono text-[10px] text-[var(--color-muted-foreground)]">
-          {k}: {v}
-        </p>
-      ))}
+            {/* Inline expansion on hover — shows subtitle + meta */}
+            <AnimatePresence>
+              {isExpanded && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                  className="overflow-hidden"
+                >
+                  <div className="mx-3 mb-2 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2.5">
+                    {item.subtitle && (
+                      <p className="text-xs leading-relaxed text-[var(--color-muted-foreground)]">{item.subtitle}</p>
+                    )}
+                    {item.meta && Object.entries(item.meta).filter(([k]) => k !== "long").map(([k, v]) => (
+                      <p key={k} className="mt-1 font-mono text-[10px] text-[var(--color-muted-foreground)]">
+                        {k}: {v}
+                      </p>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
     </div>
   );
 }

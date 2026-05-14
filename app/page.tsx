@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, FlaskConical, Users, BookOpen, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, FlaskConical, Users, BookOpen } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 
 import { Button } from "@/components/ui/button";
@@ -15,15 +15,17 @@ import { ScalpelProgress } from "@/components/motion/scalpel-progress";
 import { Magnetic } from "@/components/motion/magnetic";
 import { ScrambleCounter } from "@/components/motion/scramble-counter";
 import { PhaseWheel } from "@/components/lab/phase-wheel";
-import { FeaturedProjects } from "@/components/lab/featured-projects";
 import { PlayingCard } from "@/components/lab/playing-card";
+import { StatusPipeline } from "@/components/lab/status-pipeline";
 import { CollaboratorMarquee } from "@/components/lab/collaborator-marquee";
 import { GlossaryTerm } from "@/components/site/glossary-term";
+import { CredibilityStrip } from "@/components/sections/credibility-strip";
 import { siteConfig } from "@/lib/site-config";
 import { stats } from "@/lib/stats";
 import { mainTeam, collaboratorTeam } from "@/lib/team";
 import { collaborators } from "@/lib/collaborators";
 import { publications } from "@/lib/publications";
+import { projects } from "@/lib/projects";
 import { openings } from "@/lib/openings";
 import { mockNews } from "@/lib/mock-news";
 import { mockEvents } from "@/lib/mock-events";
@@ -35,8 +37,6 @@ export default function HomePage() {
       {/* Scalpel-and-sutures scroll progress — above everything */}
       <ScalpelProgress />
 
-      {/* SECTION_NAV — add <SectionNav items={[...]} /> here if a single-page nav is needed */}
-
       <Hero />
 
       {/* 01 — Mission */}
@@ -44,25 +44,28 @@ export default function HomePage() {
         <MissionStatement />
       </Section>
 
+      {/* Credibility strip — below mission, above numbers */}
+      <CredibilityStrip />
+
       <CircuitDivider />
 
-      {/* 02 — Research & Projects (merged) */}
-      <Section code="02" label="Research & Projects" id="research">
+      {/* 02 — By the numbers */}
+      <Section code="02" label="By the numbers" id="numbers">
+        <NumbersStrip />
+      </Section>
+
+      <CircuitDivider />
+
+      {/* 03 — Research & Projects */}
+      <Section code="03" label="Research & Projects" id="research">
         <ResearchAndProjects />
       </Section>
 
       <CircuitDivider />
 
-      {/* 03 — Team */}
-      <Section code="03" label="Team" id="team">
+      {/* 04 — Team */}
+      <Section code="04" label="Team" id="team">
         <TeamSection />
-      </Section>
-
-      <CircuitDivider />
-
-      {/* 04 — By the numbers */}
-      <Section code="04" label="By the numbers" id="numbers">
-        <NumbersStrip />
       </Section>
 
       <CircuitDivider />
@@ -186,81 +189,7 @@ function MissionStatement() {
   );
 }
 
-/* ── 02. Research & Projects ─────────────────────────────────────────────── */
-
-function ResearchAndProjects() {
-  return (
-    <>
-      <Reveal showMark>
-        <p className="eyebrow mb-4">Research & projects</p>
-        <h2
-          className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl"
-          style={{ letterSpacing: "-0.03em" }}
-        >
-          Intelligence across the surgical journey.
-        </h2>
-        <p className="mb-12 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
-          AIST maps AI research to the four phases of surgical care — each phase
-          grounded in clinical problems that matter to surgeons and patients.
-        </p>
-      </Reveal>
-
-      {/* Phase wheel + detail */}
-      <PhaseWheel />
-
-      {/* Featured projects */}
-      <div className="mt-16">
-        <FeaturedProjects />
-      </div>
-
-      <ExploreMore href="/projects">Explore all projects</ExploreMore>
-    </>
-  );
-}
-
-/* ── 03. Team ────────────────────────────────────────────────────────────── */
-
-function TeamSection() {
-  return (
-    <>
-      <Reveal>
-        <p className="eyebrow mb-4">The team</p>
-        <h2
-          className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl"
-          style={{ letterSpacing: "-0.03em" }}
-        >
-          The people behind AIST.
-        </h2>
-      </Reveal>
-
-      {/* Core team */}
-      <div className="mt-10">
-        <p className="eyebrow mb-6 text-[var(--color-muted-foreground)]">Core team</p>
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
-          {mainTeam.map((member, i) => (
-            <PlayingCard key={member.slug} member={member} index={i} />
-          ))}
-        </div>
-      </div>
-
-      {/* Collaborators */}
-      {collaboratorTeam.length > 0 && (
-        <div className="mt-14">
-          <p className="eyebrow mb-6 text-[var(--color-muted-foreground)]">Collaborators</p>
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-            {collaboratorTeam.map((member, i) => (
-              <PlayingCard key={member.slug} member={member} index={mainTeam.length + i} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      <ExploreMore href="/team">Meet the full team</ExploreMore>
-    </>
-  );
-}
-
-/* ── 04. By the numbers ──────────────────────────────────────────────────── */
+/* ── 02. By the numbers ──────────────────────────────────────────────────── */
 
 function NumbersStrip() {
   return (
@@ -284,6 +213,109 @@ function NumbersStrip() {
           </RevealItem>
         ))}
       </Reveal>
+    </>
+  );
+}
+
+/* ── 03. Research & Projects ─────────────────────────────────────────────── */
+
+function ResearchAndProjects() {
+  return (
+    <>
+      <Reveal showMark>
+        <p className="eyebrow mb-4">Research & projects</p>
+        <h2
+          className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl"
+          style={{ letterSpacing: "-0.03em" }}
+        >
+          Intelligence across the surgical journey.
+        </h2>
+        <p className="mb-12 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
+          AIST maps AI research to the four phases of surgical care — each phase
+          grounded in clinical problems that matter to surgeons and patients.
+        </p>
+      </Reveal>
+
+      {/* Phase wheel + detail */}
+      <PhaseWheel />
+
+      {/* Compact project summary — 2-up cards */}
+      <div className="mt-16 grid gap-4 sm:grid-cols-2">
+        {projects.map((project) => (
+          <div
+            key={project.slug}
+            className="group flex flex-col gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition-colors hover:border-[var(--color-accent)]/40"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="font-display text-lg font-semibold tracking-tight">
+                  {project.name}
+                </h3>
+                <p className="mt-0.5 text-xs text-[var(--color-muted-foreground)]">{project.longName}</p>
+              </div>
+              <StatusPipeline status={project.status} compact />
+            </div>
+            <p className="flex-1 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+              {project.tagline}
+            </p>
+            <Link
+              href={`/projects/${project.slug}`}
+              className="inline-flex items-center gap-1 text-sm font-medium text-[var(--color-accent)] transition-colors hover:text-[var(--color-foreground)]"
+            >
+              Open project
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      <ExploreMore href="/projects">See all projects in depth</ExploreMore>
+    </>
+  );
+}
+
+/* ── 04. Team ────────────────────────────────────────────────────────────── */
+
+function TeamSection() {
+  return (
+    <>
+      <Reveal>
+        <p className="eyebrow mb-4">The team</p>
+        <h2
+          className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl"
+          style={{ letterSpacing: "-0.03em" }}
+        >
+          The people behind AIST.
+        </h2>
+      </Reveal>
+
+      {/* Core team — centered flex-wrap */}
+      <div className="mt-10">
+        <p className="eyebrow mb-6 text-[var(--color-muted-foreground)]">Core team</p>
+        <div className="flex flex-wrap justify-center gap-6">
+          {mainTeam.map((member, i) => (
+            <div key={member.slug} className="w-[calc(50%-12px)] max-w-[200px] sm:w-[calc(33.33%-16px)] lg:w-[calc(20%-20px)]">
+              <PlayingCard member={member} index={i} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Collaborators — centered flex-wrap */}
+      {collaboratorTeam.length > 0 && (
+        <div className="mt-14">
+          <p className="eyebrow mb-6 text-[var(--color-muted-foreground)]">Collaborators</p>
+          <div className="flex flex-wrap justify-center gap-6">
+            {collaboratorTeam.map((member, i) => (
+              <div key={member.slug} className="w-[calc(50%-12px)] max-w-[200px] sm:w-[calc(33.33%-16px)] lg:w-[calc(25%-18px)]">
+                <PlayingCard member={member} index={mainTeam.length + i} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <ExploreMore href="/team">Meet the full team</ExploreMore>
     </>
   );
 }
