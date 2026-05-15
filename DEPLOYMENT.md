@@ -61,13 +61,25 @@ await resend.emails.send({
 - [ ] Run Lighthouse (Chrome → DevTools → Lighthouse)
 - [ ] Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95
 
+### Content (step 9 additions)
+- [ ] Archive thumbnails added for items in `content/archive/` (800×450 JPEG in `public/archive/thumbnails/`)
+- [ ] Mayo-only archive items (`access: "mayo-only"`) correctly flag so no direct link is shown
+- [ ] News detail pages render: `/news/asmbs-2026`, `/news/madani-visit-2025`, etc.
+- [ ] `/projects` shows the merged Research & Projects content; `/research` redirects to `/projects`
+- [ ] AI Engineer open position links to the correct Mayo Careers URL
+
 ### Manual test pass
 - [ ] Every page in both light and dark mode
 - [ ] Contact form submits; email arrives at `CONTACT_TO_EMAIL`
 - [ ] Journal Club "Add to calendar" downloads an `.ics` file
 - [ ] Publication filters work; CSV and BibTeX export download correctly
 - [ ] Cmd+K search drawer works at any scroll position
+- [ ] Scalpel scroll bar appears and animates on every page
 - [ ] Mobile (375px) — header, search drawer, playing cards, marquee
+- [ ] `/archive` renders with category/access filters
+- [ ] Clicking a news card on `/news` navigates to `/news/[slug]` detail page
+- [ ] ASMBS news detail shows SOARD hyperlink in body and in sidebar "Links" section
+- [ ] Team page shows AI Engineer with dashed placeholder and "Apply" CTA
 
 ---
 

@@ -17,6 +17,7 @@ drop images into the right folders.
 | Publications                     | `lib/publications.ts`                  |
 | **News items**                   | **`lib/news.ts`**                      |
 | Events & Journal Club            | `lib/events.ts`                        |
+| **Archive items**                | **`lib/archive.ts`**                   |
 | Open positions / hiring          | `lib/openings.ts`                      |
 | Home page stats (counters)       | `lib/stats.ts`                         |
 | Surgical phases                  | `lib/phases.ts`                        |
@@ -365,3 +366,90 @@ on the `/news` page.
 Save to `/public/news/`. Recommended dimensions: **1600×900 (16:9)**, JPEG, under 200KB.
 Use [Squoosh](https://squoosh.app) to compress. The `/public/news/README.md` lists all
 expected filenames.
+
+### Adding hyperlinks to a news article body
+
+Use standard Markdown link syntax inside the `body` string:
+
+```ts
+body: `...The AIST Lab presented [Mayo Obesity Staging Index](https://www.soard.org/article/...) at ASMBS...`,
+```
+
+Only `https://` and `http://` links are rendered — other patterns are left as plain text.
+
+### Adding structured related links (sidebar)
+
+To add links that appear in the article sidebar, add `relatedLinks` to the news item:
+
+```ts
+relatedLinks: [
+  { label: "Published abstract — SOARD", url: "https://www.soard.org/..." },
+  { label: "Conference program", url: "https://..." },
+],
+```
+
+---
+
+## Adding an archive item
+
+Archive items can be presentations, videos, webinars, journal club recordings, or documents.
+
+### Step-by-step
+
+1. Open `lib/archive.ts`.
+2. Add a new entry to the `archiveItems` array:
+
+```ts
+{
+  slug: "my-presentation-2026",
+  title: "Title of the presentation",
+  date: "2026-06-01",
+  category: "presentation",   // presentation | video | webinar | journal-club | document
+  description: "1–2 sentence description.",
+  fileUrl: "/archive/documents/my-presentation.pdf",  // if file available
+  videoUrl: "",                                         // OR video URL
+  people: ["simon-laplante"],  // team slugs
+  projects: ["mosi"],          // project slugs
+  publications: [],
+  news: ["asmbs-2026"],        // news slugs — creates "Related materials" link on detail pages
+  access: "public",            // public | mayo-only | restricted
+},
+```
+
+3. If a file: place the PDF/PPTX/etc. in `public/archive/documents/`.
+4. If a thumbnail: place a 800×450 JPEG in `public/archive/thumbnails/`.
+
+### Access levels
+
+| Value | Behavior |
+| ----- | -------- |
+| `public` | File/video link shown directly |
+| `mayo-only` | Shows "Mayo employees — contact for access" button linking to `/contact` |
+| `restricted` | Card visible in archive but no direct file/video link |
+
+---
+
+## Open position team placeholders
+
+When a role is open but unfilled, you can add a placeholder to the team roster:
+
+```ts
+{
+  slug: "my-role-open",
+  name: "Role Title",
+  role: "Engineer",
+  affiliation: "Mayo Clinic — AIST Lab",
+  bio: "We are actively recruiting...",
+  photo: "",
+  initials: "?",
+  isOpenPosition: true,
+  openPositionUrl: "https://jobs.mayoclinic.org/...",
+  featured: true,
+  order: 9,
+},
+```
+
+The roster row shows a dashed placeholder and a "Apply on Mayo Careers" CTA instead of the
+standard bio/research-focus section. The playing card on the home page routes to `/join`.
+
+To tie the opening to the position in `lib/openings.ts`, add `teamSlug: "my-role-open"` to the matching opening entry.
