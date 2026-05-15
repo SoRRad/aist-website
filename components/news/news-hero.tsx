@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Linkedin } from "lucide-react";
+import { ArrowRight, Linkedin } from "lucide-react";
 import { CategoryPill } from "./category-pill";
-import { NewsGallery } from "./news-gallery";
 import { NewsImage } from "./news-image";
 import { getNewsPrimaryImage, type NewsItem } from "@/lib/news";
 import { team } from "@/lib/team";
@@ -27,7 +26,7 @@ export function NewsHero({ item }: NewsHeroProps) {
   const mentionedProjects = projects.filter((p) => item.projects.includes(p.slug));
 
   const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-    `${siteConfig.url}/news#${item.slug}`,
+    `${siteConfig.url}/news/${item.slug}`,
   )}`;
 
   return (
@@ -102,35 +101,14 @@ export function NewsHero({ item }: NewsHeroProps) {
           </div>
         )}
 
-        {/* External link CTA */}
-        {item.externalLink && (
-          <a
-            href={item.externalLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors hover:text-[var(--color-foreground)]"
-          >
-            Read more <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
-        )}
-
-        {/* Inline body — only shown when no externalLink */}
-        {!item.externalLink && (
-          <details className="group mt-4">
-            <summary className="cursor-pointer text-sm font-medium text-[var(--color-accent)] hover:text-[var(--color-foreground)] list-none [&::-webkit-details-marker]:hidden">
-              <span className="group-open:hidden">Read the full story ↓</span>
-              <span className="hidden group-open:inline">Collapse ↑</span>
-            </summary>
-            <div className="mt-4 space-y-3 border-t border-[var(--color-border)] pt-4">
-              {item.body.split("\n\n").filter(Boolean).map((para, i) => (
-                <p key={i} className="text-pretty text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-                  {para.trim()}
-                </p>
-              ))}
-              <NewsGallery item={item} />
-            </div>
-          </details>
-        )}
+        {/* Read more CTA */}
+        <Link
+          href={item.externalLink ?? `/news/${item.slug}`}
+          {...(item.externalLink ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors hover:text-[var(--color-foreground)]"
+        >
+          Read the full story <ArrowRight className="h-3.5 w-3.5 transition-transform hover:translate-x-0.5" />
+        </Link>
       </div>
     </article>
   );

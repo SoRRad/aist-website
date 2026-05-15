@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
 import { ExploreMore } from "@/components/site/explore-more";
 import { CategoryPill } from "@/components/news/category-pill";
@@ -27,9 +28,10 @@ export function FromTheLabSection({ newsItems }: FromTheLabSectionProps) {
           });
 
           return (
-            <div
+            <Link
               key={item.slug}
-              className="group flex flex-col overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] transition-colors hover:border-[var(--color-accent)]/40"
+              href={`/news/${item.slug}`}
+              className="group flex flex-col overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40 hover:shadow-md"
             >
               {/* Image */}
               <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -56,7 +58,7 @@ export function FromTheLabSection({ newsItems }: FromTheLabSectionProps) {
                   {item.excerpt}
                 </p>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

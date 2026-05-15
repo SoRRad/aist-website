@@ -12,6 +12,11 @@ export type NewsImageEntry = {
   caption?: string;
 };
 
+export type NewsRelatedLink = {
+  label: string;
+  url: string;
+};
+
 export type NewsItem = {
   slug: string;
   title: string;
@@ -26,6 +31,7 @@ export type NewsItem = {
   projects: string[];
   publications: string[];
   externalLink?: string;
+  relatedLinks?: NewsRelatedLink[];
   featured: boolean;
 };
 
@@ -124,12 +130,18 @@ The AIST Lab's participation reflects its continued commitment to collaboration,
 
 During the meeting, Dr. Laplante delivered an invited talk titled "Quantum Computing: Solving Complex Surgical Data Challenges" as part of the session "No Longer The Future: AI, Digital Surgery, Machine Learning and Quantum Computing in Today's OR." He also served as moderator for the Innovation Without Borders session, contributing to discussions on emerging technologies and their role in the future of surgery.
 
-The AIST Lab also presented an abstract poster titled "Mayo Obesity Staging Index: A Novel Obesity Classification System," highlighting ongoing work to develop a clinically meaningful framework for obesity classification and surgical decision-making.
+The AIST Lab also presented an abstract poster titled "[Mayo Obesity Staging Index: A Novel Obesity Classification System](https://www.soard.org/article/S1550-7289(26)00376-X/fulltext)," highlighting ongoing work to develop a clinically meaningful framework for obesity classification and surgical decision-making.
 
 The lab's participation at ASMBS reflects its growing role in advancing innovation at the intersection of bariatric surgery, artificial intelligence, and emerging computational technologies.`,
     people: ["simon-laplante", "abdulrahman-alomar"],
     projects: ["mosi"],
     publications: ["mosi-novel-classification-2026"],
+    relatedLinks: [
+      {
+        label: "Published abstract — SOARD",
+        url: "https://www.soard.org/article/S1550-7289(26)00376-X/fulltext",
+      },
+    ],
     featured: true,
   },
 ];
