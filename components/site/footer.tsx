@@ -33,7 +33,7 @@ export function SiteFooter() {
           <div className="col-span-2">
             {/* Mark + wordmark */}
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <Image src={logos.markNeutral} alt="AIST logo mark" width={36} height={36} className="h-9 w-9" />
+              <Image src={logos.markNeutral} alt="AIST logo mark" width={32} height={32} className="h-8 w-8" />
               <span className="font-display text-[1.5rem] tracking-tight">AIST</span>
             </Link>
 

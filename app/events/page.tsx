@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { events, upcomingEvents, pastEvents } from "@/lib/events";
+import { upcomingEvents, pastEvents } from "@/lib/events";
 import { JournalClubButtons } from "@/components/sections/journal-club-buttons";
 
 export const metadata: Metadata = {
@@ -86,9 +86,11 @@ export default function EventsPage() {
       )}
 
       {/* Past events */}
-      {pastEvents.length > 0 && (
-        <section>
-          <p className="eyebrow mb-6">Past</p>
+      <section>
+        <p className="eyebrow mb-6">Past</p>
+        {pastEvents.length === 0 ? (
+          <p className="text-sm text-[var(--color-muted-foreground)]">No past events to display yet.</p>
+        ) : (
           <details className="group">
             <summary className="cursor-pointer text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
               Show {pastEvents.length} past event{pastEvents.length > 1 ? "s" : ""}
@@ -105,14 +107,8 @@ export default function EventsPage() {
               ))}
             </div>
           </details>
-        </section>
-      )}
-
-      {events.length === 0 && (
-        <div className="py-16 text-center">
-          <p className="text-[var(--color-muted-foreground)]">No events scheduled yet. Check back soon.</p>
-        </div>
-      )}
+        )}
+      </section>
 
       <div className="mt-16 border-t border-[var(--color-border)] pt-8">
         <Link href="/" className="text-sm font-medium text-[var(--color-accent)] hover:underline">

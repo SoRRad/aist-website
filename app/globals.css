@@ -135,7 +135,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-feature-settings: "cv11", "ss01", "ss03";
-    scroll-padding-top: 80px;
+    scroll-padding-top: 64px;
   }
 
   body {
