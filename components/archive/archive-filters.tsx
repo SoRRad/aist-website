@@ -2,7 +2,7 @@
 
 import { Search, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ARCHIVE_CATEGORY_LABELS, type ArchiveCategory, type ArchiveAccess } from "@/lib/archive";
+import { type ArchiveCategory, type ArchiveAccess } from "@/lib/archive";
 
 export type ArchiveFilterState = {
   query: string;
