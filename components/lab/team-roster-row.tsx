@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Globe, Github, Linkedin, Mail, Twitter, ArrowRight } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
@@ -40,60 +40,87 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
     >
       {/* Photo */}
       <div className={cn("shrink-0 self-start", "mx-auto sm:mx-0", photoSize.wClass)}>
-        <div
-          className={cn(
-            "relative overflow-hidden rounded-xl",
-            photoSize.wClass,
-            photoSize.hClass,
-          )}
-        >
-          {/* Initials fallback */}
+        {member.isOpenPosition ? (
           <div
             className={cn(
-              "absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[var(--color-navy-800)] to-[var(--color-navy-900)] transition-opacity duration-300",
-              !imgError ? "opacity-0" : "opacity-100",
+              "relative flex items-center justify-center rounded-xl border-2 border-dashed border-[var(--color-accent)]/40 bg-[var(--color-muted)]",
+              photoSize.wClass,
+              photoSize.hClass,
             )}
           >
-            <span
-              className="font-display font-semibold text-[var(--color-ink-100)] opacity-60"
-              style={{ fontSize: "clamp(2rem, 6vw, 3.5rem)" }}
-            >
-              {member.initials}
-            </span>
+            <div className="text-center">
+              <span
+                className="font-display font-bold text-[var(--color-accent)]/30"
+                style={{ fontSize: "clamp(3rem, 8vw, 5rem)" }}
+              >
+                ?
+              </span>
+              <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
+                Coming soon
+              </p>
+            </div>
           </div>
-
-          {/* Photo */}
-          <Image
-            src={member.photo}
-            alt={member.name}
-            fill
-            sizes={`(max-width: 640px) 80vw, ${photoSize.w}px`}
+        ) : (
+          <div
             className={cn(
-              "object-cover object-top transition-all duration-300 group-hover:scale-[1.02]",
-              imgError ? "opacity-0" : "opacity-100",
+              "relative overflow-hidden rounded-xl",
+              photoSize.wClass,
+              photoSize.hClass,
             )}
-            onError={() => {
-              console.warn(`[AIST] Team photo not found: ${member.photo}`);
-              setImgError(true);
-            }}
-          />
+          >
+            {/* Initials fallback */}
+            <div
+              className={cn(
+                "absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[var(--color-navy-800)] to-[var(--color-navy-900)] transition-opacity duration-300",
+                !imgError ? "opacity-0" : "opacity-100",
+              )}
+            >
+              <span
+                className="font-display font-semibold text-[var(--color-ink-100)] opacity-60"
+                style={{ fontSize: "clamp(2rem, 6vw, 3.5rem)" }}
+              >
+                {member.initials}
+              </span>
+            </div>
 
-          {/* AIST corner badge */}
-          <div className="pointer-events-none absolute right-2 top-2 rounded-md bg-[var(--color-navy-900)]/70 p-1 backdrop-blur-sm">
-            <Image src={logos.markNeutral} alt="" width={16} height={16} className="h-4 w-4 opacity-70" />
+            {/* Photo */}
+            <Image
+              src={member.photo}
+              alt={member.name}
+              fill
+              sizes={`(max-width: 640px) 80vw, ${photoSize.w}px`}
+              className={cn(
+                "object-cover object-top transition-all duration-300 group-hover:scale-[1.02]",
+                imgError ? "opacity-0" : "opacity-100",
+              )}
+              onError={() => {
+                console.warn(`[AIST] Team photo not found: ${member.photo}`);
+                setImgError(true);
+              }}
+            />
+
+            {/* AIST corner badge */}
+            <div className="pointer-events-none absolute right-2 top-2 rounded-md bg-[var(--color-navy-900)]/70 p-1 backdrop-blur-sm">
+              <Image src={logos.markNeutral} alt="" width={16} height={16} className="h-4 w-4 opacity-70" />
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Content */}
       <div className="flex flex-1 flex-col">
         {/* Role eyebrow */}
-        <p className="eyebrow mb-2 text-[var(--color-accent)]">
+        <p className="eyebrow mb-2 flex flex-wrap items-center gap-2 text-[var(--color-accent)]">
           {String(index).padStart(2, "0")} / {member.role}
+          {member.isOpenPosition && (
+            <span className="rounded-sm border border-[var(--color-coral-400)]/40 bg-[var(--color-coral-400)]/10 px-1.5 py-0.5 font-mono text-[9px] tracking-widest text-[var(--color-coral-400)]">
+              OPEN POSITION
+            </span>
+          )}
         </p>
 
         {/* Name */}
-        <Link href={`/team/${member.slug}`}>
+        <Link href={member.isOpenPosition ? "/join" : `/team/${member.slug}`}>
           <h3
             className="font-display text-balance font-semibold tracking-tight text-[var(--color-foreground)] transition-colors hover:text-[var(--color-accent)]"
             style={{
@@ -118,39 +145,58 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
           {member.bio}
         </p>
 
-        {/* Research focus — main variant only */}
-        {variant === "main" && member.researchFocus && member.researchFocus.length > 0 && (
-          <div className="mt-4">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-foreground)]">
-              Research focus
+        {member.isOpenPosition ? (
+          /* Open position CTA */
+          <div className="mt-5 rounded-xl border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/5 p-4">
+            <p className="mb-3 text-sm font-semibold text-[var(--color-foreground)]">
+              We&apos;re hiring
             </p>
-            <ul className="space-y-1">
-              {member.researchFocus.map((focus) => (
-                <li key={focus} className="flex items-start gap-2 text-sm text-[var(--color-muted-foreground)]">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]" />
-                  {focus}
-                </li>
-              ))}
-            </ul>
+            <a
+              href={member.openPositionUrl ?? "/join"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            >
+              Apply on Mayo Careers <ArrowRight className="h-3.5 w-3.5" />
+            </a>
           </div>
-        )}
+        ) : (
+          <>
+            {/* Research focus — main variant only */}
+            {variant === "main" && member.researchFocus && member.researchFocus.length > 0 && (
+              <div className="mt-4">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[var(--color-foreground)]">
+                  Research focus
+                </p>
+                <ul className="space-y-1">
+                  {member.researchFocus.map((focus) => (
+                    <li key={focus} className="flex items-start gap-2 text-sm text-[var(--color-muted-foreground)]">
+                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]" />
+                      {focus}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-        {/* Link chips */}
-        {linkItems.length > 0 && (
-          <div className="mt-5 flex flex-wrap items-center gap-2">
-            {linkItems.map(({ href, Icon, label }) => (
-              <a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 py-1 text-xs font-medium text-[var(--color-muted-foreground)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-foreground)]"
-              >
-                <Icon className="h-3 w-3" />
-                {label}
-              </a>
-            ))}
-          </div>
+            {/* Link chips */}
+            {linkItems.length > 0 && (
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                {linkItems.map(({ href, Icon, label }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 py-1 text-xs font-medium text-[var(--color-muted-foreground)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-foreground)]"
+                  >
+                    <Icon className="h-3 w-3" />
+                    {label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

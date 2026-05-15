@@ -26,6 +26,8 @@ export type TeamMember = {
   researchFocus?: string[];
   featured?: boolean;
   order: number;
+  isOpenPosition?: boolean;
+  openPositionUrl?: string;
 };
 
 export const team: TeamMember[] = [
@@ -150,6 +152,25 @@ export const team: TeamMember[] = [
     },
     featured: true,
     order: 7,
+  },
+  {
+    slug: "ai-engineer-open",
+    name: "AI Engineer",
+    role: "Engineer",
+    affiliation: "Mayo Clinic — AIST Lab",
+    bio: "We are actively recruiting an AI Engineer to join the AIST Lab. The right candidate will work across the lab's surgical AI portfolio — computer vision, decision support, and validation — alongside our research fellows and clinical collaborators.",
+    photo: "",
+    initials: "?",
+    links: {
+      profile:
+        "https://jobs.mayoclinic.org/job/rochester/research-fellow-in-surgical-ai/33647/92856889248",
+    },
+    researchFocus: ["Position open — apply via Mayo Careers"],
+    featured: true,
+    order: 8,
+    isOpenPosition: true,
+    openPositionUrl:
+      "https://jobs.mayoclinic.org/job/rochester/research-fellow-in-surgical-ai/33647/92856889248",
   },
 ];
 
