@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { ArrowUpRight, Linkedin } from "lucide-react";
 import { CategoryPill } from "./category-pill";
+import { NewsGallery } from "./news-gallery";
 import { NewsImage } from "./news-image";
-import type { NewsItem } from "@/lib/news";
+import { getNewsPrimaryImage, type NewsItem } from "@/lib/news";
 import { team } from "@/lib/team";
 import { projects } from "@/lib/projects";
 import { siteConfig } from "@/lib/site-config";
@@ -14,6 +15,7 @@ interface NewsHeroProps {
 }
 
 export function NewsHero({ item }: NewsHeroProps) {
+  const primaryImage = getNewsPrimaryImage(item);
   const date = new Date(item.date + "T00:00:00");
   const formatted = date.toLocaleDateString("en-US", {
     month: "long",
@@ -36,8 +38,8 @@ export function NewsHero({ item }: NewsHeroProps) {
       {/* Hero image */}
       <div className="relative aspect-[16/7] w-full overflow-hidden">
         <NewsImage
-          src={item.image}
-          alt={item.imageAlt}
+          src={primaryImage?.src}
+          alt={primaryImage?.alt}
           category={item.category}
           date={item.date}
           priority
@@ -125,6 +127,7 @@ export function NewsHero({ item }: NewsHeroProps) {
                   {para.trim()}
                 </p>
               ))}
+              <NewsGallery item={item} />
             </div>
           </details>
         )}

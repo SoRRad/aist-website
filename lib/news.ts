@@ -6,6 +6,12 @@ export type NewsCategory =
   | "lab-update"
   | "newsletter";
 
+export type NewsImageEntry = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
 export type NewsItem = {
   slug: string;
   title: string;
@@ -13,6 +19,7 @@ export type NewsItem = {
   category: NewsCategory;
   image?: string;
   imageAlt?: string;
+  images?: NewsImageEntry[];
   excerpt: string;
   body: string;
   people: string[];
@@ -87,6 +94,18 @@ The AIST Lab's participation reflects its continued commitment to collaboration,
     category: "conference",
     image: "/news/asmbs-2026.jpg",
     imageAlt: "Dr. Laplante presenting at ASMBS 2026 in San Antonio",
+    images: [
+      {
+        src: "/news/asmbs-2026.jpg",
+        alt: "Dr. Laplante presenting at ASMBS 2026 in San Antonio",
+        caption: "AIST Lab representation at the 2026 ASMBS Annual Meeting",
+      },
+      {
+        src: "/news/asmbs-poster1-2026.jpg",
+        alt: "MOSI abstract poster presented by the AIST Lab at the 2026 ASMBS Annual Meeting",
+        caption: "MOSI abstract poster: Mayo Obesity Staging Index, a novel obesity classification system",
+      },
+    ],
     excerpt:
       "Dr. Simon J. Laplante delivered an invited talk on \"Quantum Computing: Solving Complex Surgical Data Challenges\" and the AIST Lab presented the MOSI abstract poster at the 2026 ASMBS Annual Meeting in San Antonio, Texas.",
     body: `From May 4–7, 2026, Dr. Simon J. Laplante and Dr. Abdulrahman Alomar represented the AIST Lab at the annual American Society for Metabolic and Bariatric Surgery (ASMBS) conference, held this year in San Antonio, Texas.
@@ -108,6 +127,18 @@ export const allNews = [...news].sort(
 );
 
 export const featuredNews = allNews.find((n) => n.featured) ?? allNews[0];
+
+export function getNewsImages(item: NewsItem): NewsImageEntry[] {
+  if (item.images?.length) return item.images;
+  if (item.image) {
+    return [{ src: item.image, alt: item.imageAlt ?? item.title }];
+  }
+  return [];
+}
+
+export function getNewsPrimaryImage(item: NewsItem): NewsImageEntry | undefined {
+  return getNewsImages(item)[0];
+}
 
 export function getNewsByPerson(slug: string): NewsItem[] {
   return allNews.filter((n) => n.people.includes(slug));

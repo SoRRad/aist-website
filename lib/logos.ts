@@ -12,7 +12,7 @@ export const logos = {
 
   // Full horizontal lockups — used in header and footer
   fullHorizontalDark: "/logos/aist_logo_png/aist-full-horizontal-dark-transparent.png",
-  // No horizontal-light variant in pack; use stacked-light as fallback
+  // TODO: replace with a true horizontal light logo when available.
   fullHorizontalLight: "/logos/aist_logo_png/aist-full-stacked-light-transparent.png",
 
   // Mark only (no wordmark)

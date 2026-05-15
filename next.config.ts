@@ -1,7 +1,12 @@
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
+
+const repoRoot = dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  outputFileTracingRoot: repoRoot,
   // Allow embedding GitHub Pages projects (MOSI) and Cloud Run apps (SIRIS) via iframe
   async headers() {
     return [

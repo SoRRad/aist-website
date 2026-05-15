@@ -148,7 +148,7 @@ export default function JoinPage() {
           Send a brief note about your background and what you&apos;re hoping to work on.
         </p>
         <Button asChild variant="outline">
-          <Link href="/contact?inquiryType=position">Get in touch →</Link>
+          <Link href="/contact?inquiry=position">Get in touch →</Link>
         </Button>
       </div>
     </section>

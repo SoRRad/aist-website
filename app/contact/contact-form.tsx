@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v4";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { projects } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
 const INQUIRY_TYPES = [
@@ -69,9 +70,11 @@ const NEWSLETTER_PLACEHOLDER =
 export function ContactForm() {
   const searchParams = useSearchParams();
   const presetInquiry = searchParams.get("inquiry") as InquiryType | null;
+  const presetProject = searchParams.get("project");
 
   const [submitted, setSubmitted] = React.useState(false);
   const [serverError, setServerError] = React.useState("");
+  const [submissionMode, setSubmissionMode] = React.useState<"sent" | "development">("sent");
 
   const {
     register,
@@ -88,6 +91,16 @@ export function ContactForm() {
   const inquiryType = watch("inquiryType");
   const isCollaboration =
     inquiryType === "research-collaboration" || inquiryType === "clinical-collaboration";
+  const selectedProject = projects.find((project) => project.slug === presetProject);
+  const projectName = selectedProject?.name ?? formatProjectSlug(presetProject);
+  const messagePlaceholder =
+    projectName && isCollaboration
+      ? `I am interested in collaborating on the ${projectName} project. My background/institution is...`
+      : inquiryType === "journal-club"
+        ? JOURNAL_CLUB_PLACEHOLDER
+        : inquiryType === "newsletter"
+          ? NEWSLETTER_PLACEHOLDER
+          : "Tell us about your question, project, or interest...";
 
   const onSubmit = async (data: FormValues) => {
     setServerError("");
@@ -102,6 +115,8 @@ export function ContactForm() {
         setServerError((json as { error?: string }).error ?? "Submission failed. Please try again.");
         return;
       }
+      const json = (await res.json().catch(() => ({}))) as { mode?: "development" };
+      setSubmissionMode(json.mode === "development" ? "development" : "sent");
       setSubmitted(true);
     } catch {
       setServerError("Network error. Please check your connection and try again.");
@@ -114,14 +129,15 @@ export function ContactForm() {
         <div className="flex items-center gap-3">
           <CheckCircle2 className="h-6 w-6 shrink-0 text-[var(--color-status-deployed)]" />
           <h2 className="font-display text-xl font-semibold tracking-tight">
-            Submission received in development mode.
+            {submissionMode === "development" ? "Email delivery is not configured yet." : "Message sent."}
           </h2>
         </div>
         <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-          Email delivery is being configured before public launch. For urgent inquiries,
-          please email{" "}
-          <a href="mailto:contact@aist-lab.org" className="text-[var(--color-accent)] hover:underline">
-            contact@aist-lab.org
+          {submissionMode === "development"
+            ? "Your form entry was accepted and logged on the server, but it was not emailed because Resend is not configured. Please email "
+            : "Thank you for reaching out. For urgent follow-up, please email "}
+          <a href="mailto:shahriarirad.reza@mayo.edu" className="text-[var(--color-accent)] hover:underline">
+            shahriarirad.reza@mayo.edu
           </a>{" "}
           directly. In the meantime, explore our{" "}
           <Link href="/projects" className="text-[var(--color-accent)] hover:underline">projects</Link>{" "}
@@ -134,8 +150,7 @@ export function ContactForm() {
           </summary>
           <p className="mt-2 text-xs leading-relaxed text-[var(--color-muted-foreground)]">
             Submissions are logged to the development server console only. Email forwarding will be
-            configured via Resend before the site goes live. See <code>app/api/contact/route.ts</code> for
-            the exact integration point.
+            enabled when <code>RESEND_API_KEY</code> and <code>CONTACT_FROM_EMAIL</code> are configured.
           </p>
         </details>
       </div>
@@ -223,13 +238,7 @@ export function ContactForm() {
         <textarea
           {...register("message")}
           rows={5}
-          placeholder={
-            inquiryType === "journal-club"
-              ? JOURNAL_CLUB_PLACEHOLDER
-              : inquiryType === "newsletter"
-              ? NEWSLETTER_PLACEHOLDER
-              : "Tell us about your question, project, or interest…"
-          }
+          placeholder={messagePlaceholder}
           className={cn(inputClass(!!errors.message), "resize-y")}
         />
       </Field>
@@ -287,4 +296,13 @@ function inputClass(hasError: boolean) {
       ? "border-red-500/60"
       : "border-[var(--color-border)] hover:border-[var(--color-accent)]/40",
   );
+}
+
+function formatProjectSlug(slug: string | null): string | undefined {
+  if (!slug) return undefined;
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.toUpperCase())
+    .join(" ");
 }

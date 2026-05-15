@@ -2,8 +2,9 @@
 
 import { ArrowUpRight, Linkedin } from "lucide-react";
 import { CategoryPill } from "./category-pill";
+import { NewsGallery } from "./news-gallery";
 import { NewsImage } from "./news-image";
-import type { NewsItem } from "@/lib/news";
+import { getNewsPrimaryImage, type NewsItem } from "@/lib/news";
 import { siteConfig } from "@/lib/site-config";
 
 interface NewsCardProps {
@@ -12,6 +13,7 @@ interface NewsCardProps {
 }
 
 export function NewsCard({ item, size = "small" }: NewsCardProps) {
+  const primaryImage = getNewsPrimaryImage(item);
   const date = new Date(item.date + "T00:00:00");
   const formatted = date.toLocaleDateString("en-US", {
     month: "short",
@@ -31,8 +33,8 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
       {/* Image */}
       <div className={`relative w-full overflow-hidden ${size === "large" ? "aspect-[16/9]" : "aspect-[16/9]"}`}>
         <NewsImage
-          src={item.image}
-          alt={item.imageAlt}
+          src={primaryImage?.src}
+          alt={primaryImage?.alt}
           category={item.category}
           date={item.date}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -104,6 +106,7 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
             {para.trim()}
           </p>
         ))}
+        <NewsGallery item={item} />
       </div>
     </details>
   );

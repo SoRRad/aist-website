@@ -298,7 +298,6 @@ export function CommandPalette() {
 
               {/* Footer — keyboard hints */}
               <div className="shrink-0 border-t border-[var(--color-border)] px-4 py-2.5 text-[10px] text-[var(--color-muted-foreground)]">
-                <span className="font-mono">↵</span> open ·{" "}
                 <span className="font-mono">esc</span> close ·{" "}
                 <span className="font-mono">⌘K</span> toggle ·{" "}
                 <span className="opacity-50">/team /project /pub /page /news to filter</span>

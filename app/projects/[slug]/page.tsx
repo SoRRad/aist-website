@@ -119,7 +119,7 @@ export default async function ProjectPage({
             </Button>
           )}
           <Button asChild variant="outline" size="lg">
-            <Link href={`/contact?topic=collaboration&project=${slug}`}>
+            <Link href={`/contact?inquiry=research-collaboration&project=${slug}`}>
               <Mail className="h-4 w-4" />
               Cite this project
             </Link>
@@ -246,7 +246,7 @@ export default async function ProjectPage({
             Interested in collaborating on {project.name}? We welcome clinical partnerships, dataset contributions, and research collaboration.
           </p>
           <Button asChild variant="accent">
-            <Link href={`/contact?topic=collaboration&project=${slug}`}>
+            <Link href={`/contact?inquiry=research-collaboration&project=${slug}`}>
               Reach out →
             </Link>
           </Button>

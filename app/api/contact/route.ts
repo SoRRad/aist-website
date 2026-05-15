@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 import { z } from "zod/v4";
 
 const contactSchema = z.object({
@@ -37,11 +38,44 @@ export async function POST(req: NextRequest) {
   }
 
   const data = parsed.data;
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const fromEmail = process.env.CONTACT_FROM_EMAIL;
+  const toEmail = process.env.CONTACT_TO_EMAIL || "shahriarirad.reza@mayo.edu";
+  const subject = `[AIST Contact] ${data.inquiryType} — ${data.name}`;
+  const text = [
+    `Name: ${data.name}`,
+    `Email: ${data.email}`,
+    `Institution: ${data.institution || "Not provided"}`,
+    `Inquiry type: ${data.inquiryType}`,
+    `Clinical area: ${data.clinicalArea || "Not provided"}`,
+    `Dataset type: ${data.datasetType || "Not provided"}`,
+    `IRB status: ${data.irbStatus || "Not provided"}`,
+    "",
+    "Message:",
+    data.message,
+  ].join("\n");
 
-  // TODO: Wire up real email delivery here.
-  // Example with Resend: await resend.emails.send({ from: "...", to: "contact@aist-lab.org", ... })
-  // Example with Mailgun: await mailgun.messages.create("...", { from: "...", to: "...", ... })
-  console.log("[contact form submission]", JSON.stringify(data, null, 2));
+  if (!resendApiKey || !fromEmail) {
+    console.log("[contact form submission]", JSON.stringify(data, null, 2));
+    return NextResponse.json({ success: true, mode: "development" });
+  }
+
+  try {
+    const resend = new Resend(resendApiKey);
+    await resend.emails.send({
+      from: fromEmail,
+      to: toEmail,
+      replyTo: data.email,
+      subject,
+      text,
+    });
+  } catch (error) {
+    console.error("[contact form email failed]", error);
+    return NextResponse.json(
+      { error: "Message could not be sent. Please try again later." },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({ success: true });
 }

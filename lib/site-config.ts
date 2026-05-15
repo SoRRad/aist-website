@@ -3,13 +3,21 @@
  * Edit this file to update the lab name, tagline, navigation, and social links.
  */
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000");
+
 export const siteConfig = {
   name: "AIST",
   fullName: "Artificial Intelligence in Surgical Technologies",
   tagline: "Intelligence at every phase of surgical care.",
   description:
     "AIST is a research lab advancing artificial intelligence across the full surgical journey — pre-operative planning, intra-operative guidance, post-operative recovery, and external validation of surgical AI.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: siteUrl,
   ogImage: "/opengraph-image",
   institution: {
     name: "Mayo Clinic",

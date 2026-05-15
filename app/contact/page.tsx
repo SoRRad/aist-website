@@ -32,10 +32,10 @@ export default function ContactPage() {
         <div>
           <p className="eyebrow mb-3">Email</p>
           <a
-            href="mailto:contact@aist-lab.org"
+            href="mailto:shahriarirad.reza@mayo.edu"
             className="text-base font-medium text-[var(--color-accent)] hover:underline"
           >
-            contact@aist-lab.org
+            shahriarirad.reza@mayo.edu
           </a>
           <p className="mt-1 text-sm text-[var(--color-muted-foreground)]">
             General inquiries. Response within 3–5 business days.
