@@ -1,7 +1,10 @@
+import { projects } from "@/lib/projects";
+import { publications } from "@/lib/publications";
+import { team } from "@/lib/team";
+
 /**
  * Lab statistics displayed in the "By the numbers" section.
- * Edit this file to update the figures — they feed directly into the
- * ScrambleCounter component on the home page.
+ * Values are computed from source data so the home page updates with content.
  */
 
 export interface Stat {
@@ -11,8 +14,22 @@ export interface Stat {
   sublabel?: string;
 }
 
+const activeTeamMembers = team.filter((member) => !member.isOpenPosition);
+const activeProjects = projects;
 export const stats: Stat[] = [
-  { value: 7, label: "Team members", sublabel: "Across research and engineering" },
-  { value: 2, label: "Active projects", sublabel: "MOSI and SIRIS" },
-  { value: 3, label: "Publications", sublabel: "Peer-reviewed journals" },
+  {
+    value: activeTeamMembers.length,
+    label: "Team members",
+    sublabel: "Current AIST people and collaborators",
+  },
+  {
+    value: activeProjects.length,
+    label: "Active projects",
+    sublabel: activeProjects.map((project) => project.name).join(" and "),
+  },
+  {
+    value: publications.length,
+    label: "Publications",
+    sublabel: "Research outputs in the publication index",
+  },
 ];

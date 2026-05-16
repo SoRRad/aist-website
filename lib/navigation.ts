@@ -24,12 +24,12 @@ export type NavItem = {
 
 /**
  * Primary navigation shown in the header.
- * Research and Projects are merged under /projects.
+ * Research and Projects are merged under /research.
  */
 export const primaryNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home, sectionId: "top" },
   { title: "News", href: "/news", icon: Newspaper, sectionId: "news" },
-  { title: "Research & Projects", href: "/projects", icon: Compass, sectionId: "projects" },
+  { title: "Research & Projects", href: "/research", icon: Compass, sectionId: "research" },
   { title: "Team", href: "/team", icon: Users, sectionId: "team" },
   { title: "Publications", href: "/publications", icon: FileText, sectionId: "publications" },
   { title: "Events", href: "/events", icon: Calendar, sectionId: "events" },
@@ -43,7 +43,8 @@ export const primaryNav: NavItem[] = [
 export const allNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
   { title: "News", href: "/news", icon: Newspaper },
-  { title: "Research & Projects", href: "/projects", icon: Compass },
+  { title: "Research & Projects", href: "/research", icon: Compass },
+  { title: "Projects", href: "/projects", icon: FlaskConical },
   { title: "Team", href: "/team", icon: Users },
   { title: "Publications", href: "/publications", icon: FileText },
   { title: "Events", href: "/events", icon: Calendar },
@@ -57,7 +58,8 @@ export const allNav: NavItem[] = [
 
 export const footerNav = {
   research: [
-    { title: "Research & Projects", href: "/projects" },
+    { title: "Research & Projects", href: "/research" },
+    { title: "Projects", href: "/projects" },
     { title: "Publications", href: "/publications" },
     { title: "Archive", href: "/archive" },
     { title: "Resources", href: "/resources" },

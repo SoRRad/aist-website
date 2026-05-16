@@ -61,7 +61,7 @@ export function ResearchProjectsClient({ projects }: ResearchProjectsClientProps
         ))}
       </div>
 
-      <ExploreMore href="/projects">See all projects in depth</ExploreMore>
+      <ExploreMore href="/research">Explore research and projects</ExploreMore>
     </>
   );
 }

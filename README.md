@@ -62,7 +62,7 @@ aist-website/
 │   ├── site/                  # Site chrome (Header, Footer, Logo, Section)
 │   ├── sections/              # Page-level sections (CredibilityStrip)
 │   ├── lab/                   # Lab-specific (PhaseWheel, PlayingCard, StatusPipeline)
-│   └── motion/                # Motion (Reveal, ScalpelProgress, Magnetic, CursorDot)
+│   └── motion/                # Motion (Reveal, robotic scroll progress, Magnetic, CursorDot)
 ├── content/
 │   └── projects/              # Per-project scientific content (mosi.ts, siris.ts)
 ├── lib/
@@ -79,8 +79,9 @@ aist-website/
 │   └── openings.ts            # Job postings
 └── public/
     ├── logos/                 # Brand assets
-    ├── team/                  # Team member headshots (drop here)
-    └── projects/              # Project screenshots
+    ├── news/                  # News images
+    ├── team/                  # Team member headshots
+    └── logos/                 # Brand and partner logos
 ```
 
 ---
@@ -97,11 +98,52 @@ All theme tokens are declared in `app/globals.css` under `@theme`.
 
 ### Motion language
 
-- **Scalpel progress** — scroll indicator: suture wave + No.10 scalpel at leading edge
+- **Robotic arm progress** - scroll indicator: technical path + minimal surgical robotics arm at the leading edge
 - **Reveal** (`<Reveal>`) — fade + 16px lift on scroll-into-view
 - **Magnetic** (`<Magnetic>`) — spring-damped cursor attraction on CTAs
 - **Scramble counter** (`<ScrambleCounter>`) — digit-scramble on first scroll-into-view
 - All motion respects `prefers-reduced-motion`
+
+---
+
+## Content, storage, and secrets
+
+- Store public images under `public/news`, `public/team`, or `public/logos`.
+- Prefer `.jpg` or `.webp` for photos, and keep team photos compressed before committing.
+- Avoid committing `.next`, `node_modules`, or large raw images. `.gitignore` already excludes build output, dependencies, local env files, and TypeScript build info.
+- Use Vercel environment variables for secrets. Keep `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL` server-side only.
+
+---
+
+## Simple Git workflow
+
+For simple edits, work from `main`.
+
+Before editing:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+After editing:
+
+```bash
+git status
+git add .
+git commit -m "Describe change"
+git pull --rebase origin main
+git push origin main
+```
+
+If you are currently on a step branch and want to push the current work to `main`:
+
+```bash
+git pull --rebase origin main
+git push origin HEAD:main
+```
+
+Avoid force push unless you have a specific recovery reason and know exactly who else may be affected.
 
 ---
 
@@ -125,7 +167,7 @@ Before going live:
 - [x] **Step 1** — Foundation: design system, layout shell, search, theme
 - [x] **Step 2** — Home: logo, phase wheel, projects, team, collaborators, "get involved"
 - [x] **Step 3** — Projects deep pages with embedded live tools
-- [x] **Step 4** — Team, Publications, Logo polish, PlayingCard, Konami egg, scalpel progress
+- [x] **Step 4** — Team, Publications, Logo polish, PlayingCard, Konami egg, robotic arm progress
 - [x] **Step 5** — Credibility, scientific project pages, glossary, contact form, performance
 - [x] **Step 6** — Publications system, Journal Club events, homepage server component, deployment guide
 

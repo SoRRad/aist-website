@@ -72,9 +72,9 @@ export function SiteHeader() {
             <NavigationMenu.List className="flex items-center gap-1">
               {primaryNav.map((item) => {
                 const active = isActive(item.href);
-                const isProjects = item.href === "/projects";
+                const isResearch = item.href === "/research";
 
-                if (isProjects) {
+                if (isResearch) {
                   return (
                     <ProjectsNavItem key={item.href} active={active} />
                   );
@@ -173,7 +173,7 @@ function ProjectsNavItem({ active }: { active: boolean }) {
             ? "text-[var(--color-foreground)]"
             : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]",
         )}
-        onClick={() => router.push("/projects")}
+        onClick={() => router.push("/research")}
       >
         Research & Projects
         {active && (
@@ -205,8 +205,8 @@ function ProjectsNavItem({ active }: { active: boolean }) {
         </div>
         <div className="border-t border-[var(--color-border)] px-3 py-2">
           <NavigationMenu.Link asChild>
-            <Link href="/projects" className="text-xs font-medium text-[var(--color-accent)] hover:underline focus:outline-none focus:underline">
-              View all projects →
+            <Link href="/research" className="text-xs font-medium text-[var(--color-accent)] hover:underline focus:outline-none focus:underline">
+              View research portfolio →
             </Link>
           </NavigationMenu.Link>
         </div>

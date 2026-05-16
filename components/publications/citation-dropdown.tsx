@@ -42,7 +42,7 @@ export function CitationDropdown({ publication, onClose }: CitationDropdownProps
   }, [onClose]);
 
   return (
-    <div className="absolute left-0 top-full z-20 mt-1 w-full min-w-[360px] rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] shadow-xl shadow-black/10">
+    <div className="absolute left-0 top-full z-20 mt-1 w-[min(360px,calc(100vw-2rem))] rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] shadow-xl shadow-black/10 sm:w-full sm:min-w-[360px]">
       {/* Format tabs */}
       <div className="flex border-b border-[var(--color-border)]">
         {(["AMA", "APA", "BibTeX", "RIS"] as CitationFormat[]).map((fmt) => (

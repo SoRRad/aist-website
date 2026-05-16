@@ -140,7 +140,7 @@ export function ContactForm() {
             shahriarirad.reza@mayo.edu
           </a>{" "}
           directly. In the meantime, explore our{" "}
-          <Link href="/projects" className="text-[var(--color-accent)] hover:underline">projects</Link>{" "}
+          <Link href="/research" className="text-[var(--color-accent)] hover:underline">research and projects</Link>{" "}
           or read our{" "}
           <Link href="/publications" className="text-[var(--color-accent)] hover:underline">publications</Link>.
         </p>

@@ -36,7 +36,7 @@ export const team: TeamMember[] = [
     name: "Simon J. Laplante, M.D.",
     role: "Principal Investigator",
     affiliation: "Mayo Clinic",
-    bio: "Principal investigator of AIST, focused on translating surgical AI into practical clinical decision support. Dr. Laplante combines bariatric surgery expertise with rigorous validation of AI tools designed for real-world clinical use.",
+    bio: "Simon J. Laplante, M.D., is a board-certified surgeon in the Division of Metabolic and Abdominal Wall Reconstructive Surgery at Mayo Clinic in Rochester, Minnesota. His work focuses on translating surgical artificial intelligence, computer vision, simulation, and augmented reality into practical tools that improve surgical safety, guidance, coaching, education, and quality improvement. With advanced training in minimally invasive, bariatric, gastrointestinal, and abdominal wall reconstructive surgery, Dr. Laplante combines clinical expertise with rigorous validation of AI systems for real-world surgical decision support and performance assessment.",
     photo: "/team/simon-laplante.jpg",
     initials: "S.L.",
     links: {
@@ -47,6 +47,12 @@ export const team: TeamMember[] = [
       "Clinical translation of surgical AI",
       "External validation of decision systems",
       "Quantum computing in surgery",
+      "Surgical AI",
+     "Computer vision",
+     "Decision support",
+     "Surgical safety",
+      "Video assessment",
+     "Simulation AI",
     ],
     featured: true,
     order: 1,
@@ -99,7 +105,7 @@ export const team: TeamMember[] = [
     name: "Abdulrahman Alomar, M.D.",
     role: "Research Fellow",
     affiliation: "Mayo Clinic",
-    bio: "Abdulrahman Alomar is a Research Fellow in the Division of Metabolic and Abdominal Wall Reconstructive Surgery at Mayo Clinic and the AIST Surgical AI Lab. He graduated with First Honors from the Royal College of Surgeons in Ireland – Bahrain, where he ranked among the top of his class. His research focuses on artificial intelligence in surgery, computer vision, robotic surgery, surgical education, and outcomes research. He co-leads the Mayo Obesity Staging Index project, with a broader interest in advancing AI-driven clinical decision support and surgical innovation. Outside of work, Abdulrahman enjoys visiting aquariums in every city he travels to; his favorite so far is SeaWorld Abu Dhabi.", // TODO: Refine bio
+    bio: "Abdulrahman Alomar is a Research Fellow in the Division of Metabolic and Abdominal Wall Reconstructive Surgery at Mayo Clinic and the AIST Surgical AI Lab. He graduated with First Honors from the Royal College of Surgeons in Ireland – Bahrain, where he ranked among the top of his class. His research focuses on artificial intelligence in surgery, computer vision, robotic surgery, surgical education, and outcomes research. He co-leads the Mayo Obesity Staging Index project, with a broader interest in advancing AI-driven clinical decision support and surgical innovation. Outside of work, Abdulrahman enjoys visiting aquariums in every city he travels to; his favorite so far is SeaWorld Abu Dhabi.",
     photo: "/team/abdulrahman-alomar.jpg",
     initials: "A.A.",
     links: {
