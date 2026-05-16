@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
 import { allNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
-import { team } from "@/lib/team";
+import { activeTeamMembers } from "@/lib/team";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const teamRoutes: MetadataRoute.Sitemap = team.map(({ slug }) => ({
+  const teamRoutes: MetadataRoute.Sitemap = activeTeamMembers.map(({ slug }) => ({
     url: `${base}/team/${slug}`,
     lastModified: now,
     changeFrequency: "monthly",

@@ -80,8 +80,7 @@ aist-website/
 └── public/
     ├── logos/                 # Brand assets
     ├── news/                  # News images
-    ├── team/                  # Team member headshots
-    └── logos/                 # Brand and partner logos
+    └── team/                  # Team member headshots
 ```
 
 ---

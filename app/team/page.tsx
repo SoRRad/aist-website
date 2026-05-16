@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { mainTeam, collaboratorTeam } from "@/lib/team";
+import { activeMainTeam, mainTeam, collaboratorTeam } from "@/lib/team";
 import { TeamRosterRow } from "@/components/lab/team-roster-row";
 
 export const metadata: Metadata = {
@@ -9,6 +9,14 @@ export const metadata: Metadata = {
 };
 
 export default function TeamPage() {
+  const openRoleCount = mainTeam.filter((member) => member.isOpenPosition).length;
+  const coreTeamCount = activeMainTeam.length;
+  const coreTeamLabel = `${coreTeamCount} member${coreTeamCount === 1 ? "" : "s"}${
+    openRoleCount > 0
+      ? ` · ${openRoleCount} open role${openRoleCount === 1 ? "" : "s"}`
+      : ""
+  }`;
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Page header */}
@@ -37,7 +45,7 @@ export default function TeamPage() {
             Core team
           </h2>
           <span className="text-sm text-[var(--color-muted-foreground)]">
-            {mainTeam.length} members
+            {coreTeamLabel}
           </span>
         </div>
         <div className="divide-y divide-[var(--color-border)]">

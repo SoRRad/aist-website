@@ -1,7 +1,7 @@
 "use client";
 
 import { useScroll, useMotionValueEvent } from "motion/react";
-import { useState, useEffect, useId } from "react";
+import { useEffect, useId, useState } from "react";
 
 const BAR_HEIGHT = 22;
 const PATH_UNIT = 44;
@@ -80,7 +80,7 @@ function RoboticArm({
   );
 }
 
-export function ScalpelProgress() {
+export function RoboticArmProgress() {
   const { scrollYProgress } = useScroll();
   const svgId = useId().replace(/:/g, "");
   const [progress, setProgress] = useState(0);

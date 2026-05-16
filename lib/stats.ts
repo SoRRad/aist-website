@@ -1,6 +1,6 @@
 import { projects } from "@/lib/projects";
 import { publications } from "@/lib/publications";
-import { team } from "@/lib/team";
+import { activeTeamMembers } from "@/lib/team";
 
 /**
  * Lab statistics displayed in the "By the numbers" section.
@@ -14,7 +14,6 @@ export interface Stat {
   sublabel?: string;
 }
 
-const activeTeamMembers = team.filter((member) => !member.isOpenPosition);
 const activeProjects = projects;
 export const stats: Stat[] = [
   {

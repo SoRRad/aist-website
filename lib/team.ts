@@ -197,10 +197,16 @@ export const mainTeam = team
   .filter((m) => m.role !== "Collaborator" && m.role !== "Alumni")
   .sort((a, b) => a.order - b.order);
 
+export const activeMainTeam = mainTeam.filter((m) => !m.isOpenPosition);
+
 export const collaboratorTeam = team
   .filter((m) => m.role === "Collaborator")
   .sort((a, b) => a.order - b.order);
 
 export const alumniTeam = team
   .filter((m) => m.role === "Alumni")
+  .sort((a, b) => a.order - b.order);
+
+export const activeTeamMembers = team
+  .filter((m) => !m.isOpenPosition)
   .sort((a, b) => a.order - b.order);

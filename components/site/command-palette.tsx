@@ -52,7 +52,7 @@ const corpus: SearchResult[] = [
     kind: "team" as ResultKind,
     title: m.name,
     subtitle: m.role,
-    href: `/team/${m.slug}`,
+    href: m.isOpenPosition ? "/join" : `/team/${m.slug}`,
     meta: { affiliation: m.affiliation },
   })),
   ...publications

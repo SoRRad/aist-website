@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
-import { team } from "@/lib/team";
+import { activeTeamMembers, team } from "@/lib/team";
 import { projects } from "@/lib/projects";
 import { getNewsByPerson } from "@/lib/news";
 import { MemberAvatar } from "@/components/lab/member-avatar";
@@ -11,7 +11,7 @@ import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { NewsCard } from "@/components/news/news-card";
 
 export function generateStaticParams() {
-  return team.map((m) => ({ slug: m.slug }));
+  return activeTeamMembers.map((m) => ({ slug: m.slug }));
 }
 
 export async function generateMetadata({
@@ -36,7 +36,7 @@ export default async function TeamMemberPage({
   const { slug } = await params;
   const member = team.find((m) => m.slug === slug);
 
-  if (!member) notFound();
+  if (!member || member.isOpenPosition) notFound();
 
   const memberProjects = projects.filter((p) => p.team.includes(member.slug));
   const memberNews = getNewsByPerson(member.slug);
