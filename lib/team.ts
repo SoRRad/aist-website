@@ -56,7 +56,7 @@ export const team: TeamMember[] = [
     name: "Hojjat Salehinejad, Ph.D.",
     role: "AI Lead",
     affiliation: "Mayo Clinic",
-    bio: "Leads the AI and machine learning research at AIST, Dr. Salehinejad is an Associate Professor of Health Care Systems Engineering at Mayo Clinic. His research focuses on practical, trustworthy AI for healthcare, especially systems that remain reliable in real-world settings and support clinical decision-making under uncertainty. He earned his PhD from the University of Toronto, where he also completed a postdoctoral fellowship in machine learning. He founded and leads the IEEE AI in Healthcare Task Force and serves as an associate editor for leading IEEE journals.",
+    bio: "Leads the AI and machine learning research at AIST. Dr. Salehinejad is an Associate Professor of Health Care Systems Engineering at Mayo Clinic. His research focuses on practical, trustworthy AI for healthcare, especially systems that remain reliable in real-world settings and support clinical decision-making under uncertainty. He earned his PhD from the University of Toronto, where he also completed a postdoctoral fellowship in machine learning. He founded and leads the IEEE AI in Healthcare Task Force and serves as an associate editor for leading IEEE journals.",
     photo: "/team/hojjat-salehinejad.jpg",
     initials: "H.S.",
     links: {
