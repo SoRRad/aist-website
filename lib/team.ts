@@ -36,7 +36,7 @@ export const team: TeamMember[] = [
     name: "Simon J. Laplante, M.D.",
     role: "Principal Investigator",
     affiliation: "Mayo Clinic",
-    bio: "Principal investigator of AIST, with a focus on translational surgical AI and clinical decision support. Dr. Laplante bridges the operating room and the algorithm, with a particular emphasis on bariatric surgery decision-making and the prospective validation of AI tools in clinical practice.", // TODO: Refine bio
+    bio: "Principal investigator of AIST, focused on translating surgical AI into practical clinical decision support. Dr. Laplante combines bariatric surgery expertise with rigorous validation of AI tools designed for real-world clinical use.",
     photo: "/team/simon-laplante.jpg",
     initials: "S.L.",
     links: {
@@ -46,7 +46,7 @@ export const team: TeamMember[] = [
       "Bariatric surgery decision support",
       "Clinical translation of surgical AI",
       "External validation of decision systems",
-      "Quantum computing in surgery", // TODO: Refine focus areas
+      "Quantum computing in surgery",
     ],
     featured: true,
     order: 1,
@@ -56,14 +56,16 @@ export const team: TeamMember[] = [
     name: "Hojjat Salehinejad, Ph.D.",
     role: "AI Lead",
     affiliation: "Mayo Clinic",
-    bio: "Leads the AI and machine learning research at AIST, spanning computer vision, deep learning, and generative models for surgery. Dr. Salehinejad's work focuses on building robust, clinically deployable models that operate reliably across diverse patient populations.", // TODO: Refine bio
+    bio: "Leads the AI and machine learning research at AIST, Dr. Salehinejad is an Associate Professor of Health Care Systems Engineering at Mayo Clinic. His research focuses on practical, trustworthy AI for healthcare, especially systems that remain reliable in real-world settings and support clinical decision-making under uncertainty. He earned his PhD from the University of Toronto, where he also completed a postdoctoral fellowship in machine learning. He founded and leads the IEEE AI in Healthcare Task Force and serves as an associate editor for leading IEEE journals.",
     photo: "/team/hojjat-salehinejad.jpg",
     initials: "H.S.",
-    links: {},
+    links: {
+      profile: "https://www.mayo.edu/research/faculty/salehinejad-hojjat-ph-d/bio-20547448"
+    },
     researchFocus: [
       "Surgical computer vision",
       "Deep learning for medical imaging",
-      "Generative models in surgery", // TODO: Refine focus areas
+      "Generative models in surgery",
     ],
     featured: true,
     order: 2,
@@ -73,18 +75,21 @@ export const team: TeamMember[] = [
     name: "Reza Shahriarirad, M.D.",
     role: "Research Fellow",
     affiliation: "Mayo Clinic",
-    bio: "Research fellow in the Surgery Innovation Lab, leading the development of the MOSI and SIRIS platforms. Dr. Shahriarirad's work spans AI-driven decision support, patient education, and the application of advanced biomarkers to understand surgical outcomes.", // TODO: Refine bio
+    bio: "Reza Shahriarirad is a physician-researcher and Research Fellow in Surgical Innovation in the Department of Surgery at Mayo Clinic in Rochester, Minnesota. His work sits at the intersection of surgery, data science, and emerging technology, with a focus on how artificial intelligence, computer vision, and wearable sensing can advance surgical decision-making, intraoperative precision, and patient-centered care. He has authored more than 190 peer-reviewed publications spanning surgical innovation, minimally invasive and reconstructive surgery, surgical AI and predictive modeling, and infectious disease. His work also includes two issued patents and recognition among the World’s Top 2% Scientists by Stanford/Elsevier. He has completed 149 peer reviews across more than 60 international journals and serves as Guest Editor for PLOS ONE and Associate Editor for Shiraz E-Medical Journal. He is also the developer of the AIST platform and SIRIS, and co-developer of MOSI.",
     photo: "/team/reza-shahriarirad.jpg",
     initials: "R.S.",
     links: {
       profile: "https://sorrad.github.io/RezaShahriarirad_CV/",
       github: "https://github.com/SoRRad",
+      linkedin: "https://www.linkedin.com/in/reza-shahriarirad/",
     },
     researchFocus: [
-      "MOSI — bariatric staging system",
-      "SIRIS — patient education platform",
-      "AI-derived biomarkers in bariatric surgery",
-      "ECG-based biological age prediction", // TODO: Refine focus areas
+      "Surgical Innovation",
+      "Outcome Research",
+      "Artificial Intelligence",
+      "Computer Vision",
+      "Large Language Models",
+      "Minimally Invasive Surgery",
     ],
     featured: true,
     order: 3,
@@ -94,7 +99,7 @@ export const team: TeamMember[] = [
     name: "Abdulrahman Alomar, M.D.",
     role: "Research Fellow",
     affiliation: "Mayo Clinic",
-    bio: "Research fellow in the Department of Metabolic and Abdominal Wall Reconstructive Surgery at Mayo Clinic. Dr. Alomar contributes to AIST's clinical research in bariatric surgery, abdominal wall reconstruction, and the integration of AI tools into surgical planning.", // TODO: Refine bio
+    bio: "Abdulrahman Alomar is a Research Fellow in the Division of Metabolic and Abdominal Wall Reconstructive Surgery at Mayo Clinic and the AIST Surgical AI Lab. He graduated with First Honors from the Royal College of Surgeons in Ireland – Bahrain, where he ranked among the top of his class. His research focuses on artificial intelligence in surgery, computer vision, robotic surgery, surgical education, and outcomes research. He co-leads the Mayo Obesity Staging Index project, with a broader interest in advancing AI-driven clinical decision support and surgical innovation. Outside of work, Abdulrahman enjoys visiting aquariums in every city he travels to; his favorite so far is SeaWorld Abu Dhabi.", // TODO: Refine bio
     photo: "/team/abdulrahman-alomar.jpg",
     initials: "A.A.",
     links: {
@@ -103,7 +108,7 @@ export const team: TeamMember[] = [
     researchFocus: [
       "Metabolic and bariatric surgery",
       "Abdominal wall reconstruction",
-      "Surgical AI in complex abdominal surgery", // TODO: Refine focus areas
+      "Surgical AI in complex abdominal surgery",
     ],
     featured: true,
     order: 4,
@@ -111,16 +116,15 @@ export const team: TeamMember[] = [
   {
     slug: "intekhab-hossain",
     name: "Intekhab Hossain",
-    role: "Engineer",
+    role: "Fellow",
     affiliation: "Mayo Clinic",
-    bio: "Software and ML engineering across the AIST platform stack. Intekhab builds and maintains the infrastructure that bridges AIST's research algorithms and clinical-facing tools, with a focus on reliability, scalability, and developer ergonomics.", // TODO: Refine bio
+    bio: "Dr. Intekhab Hossain is currently a Minimally Invasive and Bariatric Surgery fellow and is also completing his Master of Science in Health Systems Leadership and Innovation, both through the University of Toronto. He completed his General Surgery Residency at Memorial University. His research interests include bariatric surgery, endobariatrics, artificial intelligence and quality improvement in surgery.",
     photo: "/team/intekhab-hossain.jpg",
     initials: "I.H.",
     links: {},
     researchFocus: [
-      "ML infrastructure and deployment",
-      "Clinical software engineering",
-      "Platform reliability", // TODO: Refine focus areas
+      "Minimally Invasive Surgery",
+      "Bariatric Surgery",
     ],
     featured: true,
     order: 5,
@@ -130,12 +134,20 @@ export const team: TeamMember[] = [
     name: "Omar M. Ghanem, M.D.",
     role: "Collaborator",
     affiliation: "Mayo Clinic — MARS",
-    bio: "Consultant bariatric and metabolic surgeon at Mayo Clinic, and clinical collaborator on the MOSI project. Dr. Ghanem brings deep expertise in complex bariatric and revisional surgery, and provides critical clinical validation for AIST's decision-support tools.", // TODO: Refine bio
+    bio: "Omar M. Ghanem, M.D., is a metabolic surgeon and Chair of the Division of Metabolic and Abdominal Wall Reconstructive Surgery Division at Mayo Clinic in Rochester, Minnesota. He has authored numerous journal articles, book chapters, abstracts, and other written publications. In addition to his clinical and research activities, Dr. Ghanem is the associate program director of the Mayo Clinic Minimally Invasive Surgery fellowship program. He is the associate editor of the Surgery for Obesity and Related Diseases Journal (SOARD), Clinical Obesity Journal and Surgical Innovation Journal. He is also on the editorial board of multiple journals including Annals of Surgery, Obesity Surgery, Surgical Laparoscopy & Percutaneous Techniques (SLEPT) journals. He is the Co-Chair of the Metabolic and Bariatric Surgery Committee at The Society of American Gastrointestinal and Endoscopic Surgeons (SAGES) Metabolic and Bariatric Committee.",
     photo: "/team/omar-ghanem.jpg",
-    initials: "O.G.",
+    initials: "O.M.G.",
     links: {
       profile: "https://www.mayoclinic.org/biographies/ghanem-omar-m-m-d/bio-20491179",
     },
+      researchFocus: [
+      "Minimally Invasive Surgery",
+      "Bariatric Surgery",
+      "complex & re-operative bariatric revisions",
+      "Minimally invasive median arcuate ligament release surgeries",
+      "duodenal switch outcomes",
+      "revisions after Roux-en-Y gastric bypass",
+    ],
     featured: true,
     order: 6,
   },
@@ -144,7 +156,7 @@ export const team: TeamMember[] = [
     name: "Amin Madani, M.D., Ph.D.",
     role: "Collaborator",
     affiliation: "University Health Network — SARA Lab",
-    bio: "Director of the Surgical Artificial Intelligence Research Academy (SARA) at the University Health Network, Toronto. Dr. Madani is a leading figure in surgical AI, focusing on real-time operative guidance, computer vision for the OR, and the translation of surgical AI into clinical practice.", // TODO: Refine bio
+    bio: "Director of the Surgical Artificial Intelligence Research Academy (SARA) at the University Health Network, Toronto. Dr. Madani is a leading figure in surgical AI, focusing on real-time operative guidance, computer vision for the OR, and the translation of surgical AI into clinical practice.",
     photo: "/team/amin-madani.jpg",
     initials: "A.M.",
     links: {
