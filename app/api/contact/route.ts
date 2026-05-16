@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
-import { z } from "zod/v4";
+import { z } from "zod";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -61,6 +60,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    const { Resend } = await import("resend");
     const resend = new Resend(resendApiKey);
     await resend.emails.send({
       from: fromEmail,
