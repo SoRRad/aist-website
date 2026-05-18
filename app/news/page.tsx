@@ -9,7 +9,7 @@ import { UpcomingStrip } from "@/components/news/upcoming-strip";
 export const metadata: Metadata = {
   title: "News",
   description:
-    "Conference presentations, publications, lab updates, and upcoming events from AIST and our collaborators.",
+    "Conference presentations, publications, lab updates, and upcoming events from A-STAR and our collaborators.",
 };
 
 export default function NewsPage() {
@@ -35,7 +35,7 @@ export default function NewsPage() {
           </Link>
         </div>
         <p className="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-[var(--color-muted-foreground)]">
-          Conference presentations, publications, lab updates, and upcoming events from AIST and our collaborators.
+          Conference presentations, publications, lab updates, and upcoming events from A-STAR and our collaborators.
         </p>
       </header>
 

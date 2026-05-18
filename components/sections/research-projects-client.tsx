@@ -24,7 +24,7 @@ export function ResearchProjectsClient({ projects }: ResearchProjectsClientProps
           Intelligence across the surgical journey.
         </h2>
         <p className="mb-12 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
-          AIST maps AI research to the four phases of surgical care — each phase
+          A-STAR maps AI research to the four phases of surgical care — each phase
           grounded in clinical problems that matter to surgeons and patients.
         </p>
       </Reveal>

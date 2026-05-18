@@ -27,8 +27,8 @@ export type LabEvent = {
 export const events: LabEvent[] = [
   {
     slug: "aist-journal-club-may-2026",
-    title: "AIST Lab Journal Club",
-    series: "AIST Lab Journal Club",
+    title: "A-STAR Lab Journal Club",
+    series: "A-STAR Lab Journal Club",
     type: "journal-club",
     format: "hybrid",
     date: "2026-05-27",
@@ -45,7 +45,7 @@ export const events: LabEvent[] = [
   },
   {
     slug: "ai-research-summit-2026",
-    title: "AIST Lab Abstract Accepted for the 2026 AI Research Summit",
+    title: "A-STAR Lab Abstract Accepted for the 2026 AI Research Summit",
     series: "AI Research Summit",
     type: "conference",
     format: "in-person",
@@ -54,7 +54,7 @@ export const events: LabEvent[] = [
     time: "All day",
     location: "Mayo Civic Center, Rochester, MN",
     description:
-      "An abstract presentation by Dr. Reza Shahriarirad, titled 'Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age,' has been accepted for poster presentation at the 2026 AI Research Summit. This work highlights the AIST Lab's continued efforts to apply AI to clinically meaningful questions in bariatric surgery, including the use of AI-derived biomarkers to better understand physiologic changes following surgical weight loss.",
+      "An abstract presentation by Dr. Reza Shahriarirad, titled 'Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age,' has been accepted for poster presentation at the 2026 AI Research Summit. This work highlights the A-STAR Lab's continued efforts to apply AI to clinically meaningful questions in bariatric surgery, including the use of AI-derived biomarkers to better understand physiologic changes following surgical weight loss.",
     status: "upcoming",
     rsvpRequired: false,
     recurring: false,

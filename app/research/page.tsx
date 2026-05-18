@@ -9,7 +9,7 @@ import { ProjectCard } from "@/components/lab/project-card";
 
 export const metadata = {
   title: "Research & Projects",
-  description: "AIST publications, active projects, and surgical AI focus areas.",
+  description: "A-STAR publications, active projects, and surgical AI focus areas.",
 };
 
 export default function ResearchPage() {
@@ -20,8 +20,8 @@ export default function ResearchPage() {
           publications={publications}
           eyebrow="Research portfolio"
           title="Research & Projects"
-          description="Explore AIST publications first, then follow the active systems and surgical AI directions that organize the lab's work."
-          exportBaseName="aist-research-publications"
+          description="Explore A-STAR publications first, then follow the active systems and surgical AI directions that organize the lab's work."
+          exportBaseName="astar-research-publications"
         />
       </Suspense>
 

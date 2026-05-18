@@ -5,7 +5,7 @@ import { JournalClubButtons } from "@/components/sections/journal-club-buttons";
 
 export const metadata: Metadata = {
   title: "Events",
-  description: "AIST lab events — journal clubs, seminars, and surgical AI talks.",
+  description: "A-STAR lab events — journal clubs, seminars, and surgical AI talks.",
 };
 
 const FORMAT_LABELS: Record<string, string> = {

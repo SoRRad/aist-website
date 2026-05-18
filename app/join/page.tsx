@@ -4,7 +4,7 @@ import { openings } from "@/lib/openings";
 import { Button } from "@/components/ui/button";
 import { formatDateShort } from "@/lib/utils";
 
-export const metadata = { title: "Join AIST" };
+export const metadata = { title: "Join A-STAR" };
 
 const profiles = [
   {
@@ -57,7 +57,7 @@ export default function JoinPage() {
     <section className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Hero */}
       <div className="mb-16 max-w-2xl">
-        <p className="eyebrow mb-4">Join AIST</p>
+        <p className="eyebrow mb-4">Join A-STAR</p>
         <h1
           className="font-display text-balance text-5xl font-semibold tracking-tight sm:text-6xl"
           style={{ letterSpacing: "-0.03em" }}
@@ -70,9 +70,9 @@ export default function JoinPage() {
         </p>
       </div>
 
-      {/* Why AIST */}
+      {/* Why A-STAR */}
       <div className="mb-20">
-        <p className="eyebrow mb-6">Why AIST</p>
+        <p className="eyebrow mb-6">Why A-STAR</p>
         <div className="grid gap-5 sm:grid-cols-2">
           {whyAist.map(({ icon: Icon, title, description }) => (
             <div key={title} className="flex gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">

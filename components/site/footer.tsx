@@ -33,8 +33,8 @@ export function SiteFooter() {
           <div className="col-span-2">
             {/* Mark + wordmark */}
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <Image src={logos.markNeutral} alt="AIST logo mark" width={32} height={32} className="h-8 w-8" />
-              <span className="font-display text-[1.5rem] tracking-tight">AIST</span>
+              <Image src={logos.markNeutral} alt="A-STAR logo mark" width={32} height={32} className="h-8 w-8" />
+              <span className="font-display text-[1.5rem] tracking-tight">A-STAR</span>
             </Link>
 
             <p className="mt-4 max-w-sm font-display text-xl font-semibold leading-tight text-[var(--color-foreground)]" style={{ letterSpacing: "-0.03em" }}>
@@ -76,7 +76,7 @@ export function SiteFooter() {
 
         <div className="mt-16 border-t border-[var(--color-border)] pt-8">
           <div className="flex flex-col items-start justify-between gap-4 text-xs text-[var(--color-muted-foreground)] sm:flex-row sm:items-center">
-            <p>© {new Date().getFullYear()} AIST Lab.</p>
+            <p>© {new Date().getFullYear()} A-STAR Lab.</p>
             <p className="font-mono">{siteConfig.name} v0.1 — built with intent.</p>
           </div>
         </div>

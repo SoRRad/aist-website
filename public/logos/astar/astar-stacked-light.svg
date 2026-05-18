@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" fill="none">
+  <!-- Mark centered -->
+  <polygon points="140,12 188,40 188,96 140,124 92,96 92,40"
+    stroke="#061632" stroke-width="3" fill="none" stroke-linejoin="round"/>
+  <circle cx="140" cy="12" r="4" fill="#1e88e5"/>
+  <circle cx="188" cy="40" r="4" fill="#1e88e5"/>
+  <circle cx="188" cy="96" r="4" fill="#1e88e5"/>
+  <circle cx="140" cy="124" r="4" fill="#1e88e5"/>
+  <circle cx="92" cy="96" r="4" fill="#1e88e5"/>
+  <circle cx="92" cy="40" r="4" fill="#1e88e5"/>
+  <text x="140" y="88" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif"
+    font-size="52" font-weight="700" fill="#061632" letter-spacing="-2">A</text>
+  <text x="182" y="47" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif"
+    font-size="20" font-weight="400" fill="#1e88e5">★</text>
+  <!-- Wordmark -->
+  <text x="140" y="155" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif"
+    font-size="36" font-weight="700" fill="#061632" letter-spacing="-1">A-STAR</text>
+  <!-- Sub-label (two lines) -->
+  <text x="140" y="172" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif"
+    font-size="9" font-weight="400" fill="#475569" letter-spacing="0.1em">AI IN SURGICAL TECHNOLOGY</text>
+  <text x="140" y="185" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif"
+    font-size="9" font-weight="400" fill="#475569" letter-spacing="0.1em">&amp; AUGMENTATION RESEARCH</text>
+</svg>

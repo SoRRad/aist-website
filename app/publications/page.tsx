@@ -11,8 +11,8 @@ export default function PublicationsPage() {
         publications={publications}
         eyebrow="Research output"
         title="Publications."
-        description="Research outputs from the AIST ecosystem - original research, systematic reviews, and technical reports."
-        exportBaseName="aist-publications"
+        description="Research outputs from the A-STAR ecosystem — original research, systematic reviews, and technical reports."
+        exportBaseName="astar-publications"
       />
     </Suspense>
   );

@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site/footer";
 import { CursorDot } from "@/components/motion/cursor-dot";
 import { RouteProgress } from "@/components/site/route-progress";
 import { RoboticArmProgress } from "@/components/motion/robotic-arm-progress";
+import { StarField } from "@/components/motion/star-field";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -45,7 +46,8 @@ export const metadata: Metadata = {
     "surgical education",
     "MOSI",
     "SIRIS",
-    "AIST",
+    "A-STAR",
+    "surgical augmentation",
   ],
   openGraph: {
     title: `${siteConfig.name} — ${siteConfig.fullName}`,
@@ -70,17 +72,16 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/logos/aist_logo_png/favicon-512.png", type: "image/png", sizes: "512x512" },
-      { url: "/logos/aist_logo_png/aist-mark.png", type: "image/png" },
+      { url: "/logos/astar/astar-mark-neutral.svg", type: "image/svg+xml" },
     ],
-    apple: "/logos/aist_logo_png/favicon-512.png",
+    apple: "/logos/astar/astar-mark-neutral.svg",
   },
 };
 
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
-    { media: "(prefers-color-scheme: dark)", color: "#061632" },
+    { media: "(prefers-color-scheme: dark)", color: "#070c18" },
   ],
 };
 
@@ -97,7 +98,7 @@ export default function RootLayout({
         {/* Anti-flash: apply theme class before React hydrates to prevent FOUC */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.add('light');document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark');document.documentElement.classList.remove('light')}}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.classList.remove('light')}else{document.documentElement.classList.add('light');document.documentElement.classList.remove('dark')}}catch(e){}})()`,
           }}
         />
       </head>
@@ -110,6 +111,7 @@ export default function RootLayout({
           >
             Skip to main content
           </a>
+          <StarField />
           <RouteProgress />
           <RoboticArmProgress />
           <CursorDot />

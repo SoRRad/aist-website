@@ -60,11 +60,11 @@ export const archiveItems: ArchiveItem[] = [
   },
   {
     slug: "journal-club-template",
-    title: "AIST Journal Club — [Topic] [Month] [Year]",
+    title: "A-STAR Journal Club — [Topic] [Month] [Year]",
     date: "2026-05-27",
     category: "journal-club",
     description:
-      "Template entry for upcoming AIST Lab Journal Club recordings. Duplicate and rename to add a real journal club archive entry.",
+      "Template entry for upcoming A-STAR Lab Journal Club recordings. Duplicate and rename to add a real journal club archive entry.",
     videoUrl: "",
     people: [],
     projects: [],

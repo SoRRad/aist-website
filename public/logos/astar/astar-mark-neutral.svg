@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <!-- Hexagon border -->
+  <polygon points="40,4 72,22 72,58 40,76 8,58 8,22"
+    stroke="#475569" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <!-- Circuit nodes at corners -->
+  <circle cx="40" cy="4" r="2.5" fill="#1e88e5"/>
+  <circle cx="72" cy="22" r="2.5" fill="#1e88e5"/>
+  <circle cx="72" cy="58" r="2.5" fill="#1e88e5"/>
+  <circle cx="40" cy="76" r="2.5" fill="#1e88e5"/>
+  <circle cx="8" cy="58" r="2.5" fill="#1e88e5"/>
+  <circle cx="8" cy="22" r="2.5" fill="#1e88e5"/>
+  <!-- A letter -->
+  <text x="40" y="47" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif"
+    font-size="30" font-weight="700" fill="#475569" letter-spacing="-1">A</text>
+  <!-- Star mark -->
+  <text x="59" y="30" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif"
+    font-size="14" font-weight="400" fill="#1e88e5">★</text>
+</svg>

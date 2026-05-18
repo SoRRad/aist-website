@@ -4,7 +4,7 @@ import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Reach out to AIST for research collaboration, clinical partnerships, or general inquiries.",
+  description: "Reach out to A-STAR for research collaboration, clinical partnerships, or general inquiries.",
 };
 
 export default function ContactPage() {
@@ -16,7 +16,7 @@ export default function ContactPage() {
           className="font-display text-balance text-5xl font-semibold tracking-tight"
           style={{ letterSpacing: "-0.03em" }}
         >
-          Contact AIST.
+          Contact A-STAR.
         </h1>
         <p className="mt-4 max-w-xl text-pretty text-lg leading-relaxed text-[var(--color-muted-foreground)]">
           Research collaborations, clinical partnerships, media inquiries, and position interest welcome.

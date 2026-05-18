@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
   const resendApiKey = process.env.RESEND_API_KEY;
   const fromEmail = process.env.CONTACT_FROM_EMAIL;
   const toEmail = process.env.CONTACT_TO_EMAIL || "shahriarirad.reza@mayo.edu";
-  const subject = `[AIST Contact] ${data.inquiryType} — ${data.name}`;
+  const subject = `[A-STAR Contact] ${data.inquiryType} — ${data.name}`;
   const text = [
     `Name: ${data.name}`,
     `Email: ${data.email}`,

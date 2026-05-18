@@ -7,9 +7,9 @@ export default function AboutPage() {
   return (
     <>
       <ComingSoon
-        title="About AIST"
+        title="About A-STAR"
         step="Coming in Step 5"
-        description="Our mission, philosophy, and why surgical AI matters — the full story of how AIST came to be and where we're going."
+        description="Our mission, philosophy, and why surgical AI matters — the full story of how A-STAR came to be and where we're going."
       />
       {/* Institutional home — preserved here after footer cleanup */}
       <section className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:px-8">

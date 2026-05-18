@@ -13,7 +13,7 @@ interface LogoProps {
 }
 
 /**
- * AIST logo — renders both light and dark variants and lets CSS hide one.
+ * A-STAR logo — renders both light and dark variants and lets CSS hide one.
  * No useTheme(), no mounted check, no FOUC, fully SSR-correct.
  */
 export function Logo({
@@ -44,7 +44,7 @@ export function Logo({
   }[variant];
 
   const { light, dark } = sources[variant];
-  const alt = variant === "mark" ? "AIST logo mark" : "AIST — Artificial Intelligence in Surgical Technologies";
+  const alt = variant === "mark" ? "A-STAR logo mark" : "A-STAR — AI in Surgical Technology & Augmentation Research";
   const wrapClass = cn("relative", animated && "animate-logo-entrance", className);
 
   return (

@@ -8,7 +8,7 @@ export function MissionSection() {
         className="font-display max-w-4xl text-balance font-semibold leading-[1.05]"
         style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", letterSpacing: "-0.03em" }}
       >
-        AIST advances artificial intelligence across the full surgical journey —
+        A-STAR advances artificial intelligence across the full surgical journey —
         from risk stratification through patient education and rigorous validation.
       </p>
     </Reveal>

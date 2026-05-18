@@ -8,7 +8,7 @@ import type { LabEvent } from "@/lib/events";
 
 export function JournalClubButtons({ event }: { event: LabEvent }) {
   const rsvpHref = event.rsvpEmail
-    ? `mailto:${event.rsvpEmail}?subject=${encodeURIComponent("AIST Lab Journal Club RSVP")}`
+    ? `mailto:${event.rsvpEmail}?subject=${encodeURIComponent("A-STAR Lab Journal Club RSVP")}`
     : `/contact?inquiry=journal-club&event=${event.slug}`;
 
   return (

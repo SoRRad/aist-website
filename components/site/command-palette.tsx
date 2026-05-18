@@ -243,7 +243,7 @@ export function CommandPalette() {
               >
               {/* Header — logo + search input */}
               <div className="flex shrink-0 items-center gap-3 border-b border-[var(--color-border)] px-4">
-                <Image src={logos.markNeutral} alt="AIST" width={20} height={20} className="h-5 w-5 shrink-0 opacity-60" />
+                <Image src={logos.markNeutral} alt="A-STAR" width={20} height={20} className="h-5 w-5 shrink-0 opacity-60" />
                 <input
                   ref={inputRef}
                   value={query}

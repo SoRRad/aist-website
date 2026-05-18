@@ -12,11 +12,11 @@ const siteUrl =
       : "http://localhost:3000");
 
 export const siteConfig = {
-  name: "AIST",
-  fullName: "Artificial Intelligence in Surgical Technologies",
-  tagline: "Intelligence at every phase of surgical care.",
+  name: "A-STAR",
+  fullName: "AI in Surgical Technology & Augmentation Research",
+  tagline: "Augmenting the surgeon. Advancing the science.",
   description:
-    "AIST is a research lab advancing artificial intelligence across the full surgical journey — pre-operative planning, intra-operative guidance, post-operative recovery, and external validation of surgical AI.",
+    "A-STAR is a research lab advancing artificial intelligence across the full surgical journey — pre-operative planning, intra-operative guidance, post-operative recovery, and external validation of surgical AI systems.",
   url: siteUrl,
   ogImage: "/opengraph-image",
   institution: {

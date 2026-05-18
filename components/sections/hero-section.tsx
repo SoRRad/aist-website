@@ -19,22 +19,36 @@ export function HeroSection() {
 
   return (
     <section ref={heroRef} className="relative isolate min-h-[90vh] overflow-hidden">
-      {/* Grid backdrop */}
-      <div className="absolute inset-0 -z-10 bg-grid opacity-50" aria-hidden="true" />
-      {/* Radial wash */}
+      {/* Nebula wash — blue radial gradient, light touch in light mode, vivid in dark */}
       <div
-        className="absolute left-1/2 top-0 -z-10 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/4 rounded-full bg-blue-500/10 blur-3xl dark:bg-blue-500/15"
+        className="animate-nebula absolute left-1/2 top-0 -z-10 h-[700px] w-[1100px] rounded-full opacity-10 dark:opacity-20"
+        style={{
+          background: "radial-gradient(ellipse 80% 60% at 50% 0%, #3b82f6 0%, #6366f1 45%, transparent 70%)",
+          transform: "translate(-50%, -25%)",
+          filter: "blur(48px)",
+        }}
         aria-hidden="true"
       />
+      {/* Secondary nebula — offset for depth */}
+      <div
+        className="absolute left-[30%] top-[20%] -z-10 h-[400px] w-[600px] rounded-full opacity-5 dark:opacity-10"
+        style={{
+          background: "radial-gradient(ellipse at center, #1e88e5 0%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
+        aria-hidden="true"
+      />
+      {/* Grid backdrop */}
+      <div className="absolute inset-0 -z-10 bg-grid opacity-40" aria-hidden="true" />
 
       <div className="mx-auto flex max-w-5xl flex-col items-center px-4 pb-32 pt-20 text-center sm:px-6 sm:pt-28 lg:px-8">
         {/* Logo lockup — scroll-driven scale */}
         <motion.div style={{ scale: logoScale }} className="relative mt-4 flex justify-center">
-          {/* Glow ring — dark mode only; the hidden/dark:block pattern ensures zero halo in light mode */}
+          {/* Glow ring — dark mode only */}
           <div
             className="pointer-events-none absolute inset-0 -z-10 hidden rounded-full dark:block"
             style={{
-              background: "radial-gradient(ellipse at center, rgba(30,136,229,0.22) 0%, transparent 70%)",
+              background: "radial-gradient(ellipse at center, rgba(30,136,229,0.25) 0%, rgba(99,102,241,0.1) 40%, transparent 70%)",
               filter: "blur(60px)",
               transform: "scale(1.5)",
             }}
@@ -44,8 +58,8 @@ export function HeroSection() {
             variant="stacked"
             animated
             priority
-            sizes="(max-width: 640px) 280px, 420px"
-            className="max-w-[420px]"
+            sizes="(max-width: 640px) 240px, 360px"
+            className="max-w-[360px]"
           />
         </motion.div>
 
@@ -59,9 +73,10 @@ export function HeroSection() {
 
         <Reveal delay={0.3}>
           <p className="mx-auto mt-8 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)] sm:text-lg">
-            AIST advances artificial intelligence across the full surgical journey —
+            A-STAR advances artificial intelligence across the full surgical journey —
             from{" "}<GlossaryTerm term="Pre-operative" /> risk stratification through{" "}
-            patient education and rigorous external{" "}<GlossaryTerm term="Validation cohort" />.
+            intraoperative guidance, patient education, and rigorous external{" "}
+            <GlossaryTerm term="Validation cohort" />.
           </p>
         </Reveal>
 

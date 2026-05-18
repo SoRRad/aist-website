@@ -19,7 +19,7 @@ export function TeamGridClient({ mainTeam, collaboratorTeam }: TeamGridClientPro
           className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl"
           style={{ letterSpacing: "-0.03em" }}
         >
-          The people behind AIST.
+          The people behind A-STAR.
         </h2>
       </Reveal>
 

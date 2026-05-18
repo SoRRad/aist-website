@@ -24,16 +24,16 @@ export type NavItem = {
 
 /**
  * Primary navigation shown in the header.
- * Research and Projects are merged under /research.
+ * Home is rendered as icon-only in the header component.
+ * News and Publications are removed — News lives on the homepage, Publications is under Research.
+ * Archive is renamed to Resources (/resources).
  */
 export const primaryNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home, sectionId: "top" },
-  { title: "News", href: "/news", icon: Newspaper, sectionId: "news" },
   { title: "Research & Projects", href: "/research", icon: Compass, sectionId: "research" },
   { title: "Team", href: "/team", icon: Users, sectionId: "team" },
-  { title: "Publications", href: "/publications", icon: FileText, sectionId: "publications" },
   { title: "Events", href: "/events", icon: Calendar, sectionId: "events" },
-  { title: "Archive", href: "/archive", icon: Library, sectionId: "archive" },
+  { title: "Resources", href: "/resources", icon: Library, sectionId: "resources" },
   { title: "Join", href: "/join", icon: UserPlus, sectionId: "join" },
 ];
 
@@ -48,11 +48,10 @@ export const allNav: NavItem[] = [
   { title: "Team", href: "/team", icon: Users },
   { title: "Publications", href: "/publications", icon: FileText },
   { title: "Events", href: "/events", icon: Calendar },
-  { title: "Archive", href: "/archive", icon: Library },
+  { title: "Resources", href: "/resources", icon: Library },
   { title: "Join Us", href: "/join", icon: UserPlus },
   { title: "About", href: "/about", icon: Sparkles },
   { title: "Now", href: "/now", icon: Sparkles },
-  { title: "Resources", href: "/resources", icon: FlaskConical },
   { title: "Contact", href: "/contact", icon: Mail },
 ];
 
@@ -61,7 +60,6 @@ export const footerNav = {
     { title: "Research & Projects", href: "/research" },
     { title: "Projects", href: "/projects" },
     { title: "Publications", href: "/publications" },
-    { title: "Archive", href: "/archive" },
     { title: "Resources", href: "/resources" },
   ],
   lab: [

@@ -4,7 +4,7 @@ import { projects } from "@/lib/projects";
 import { stats } from "@/lib/stats";
 import { collaborators } from "@/lib/collaborators";
 import { openings } from "@/lib/openings";
-import { events } from "@/lib/events";
+import { upcomingEvents } from "@/lib/events";
 import { allNews } from "@/lib/news";
 
 import { Section } from "@/components/site/section";
@@ -17,14 +17,13 @@ import { CredibilityStrip } from "@/components/sections/credibility-strip";
 import { CountersStripClient } from "@/components/sections/counters-strip-client";
 import { ResearchProjectsClient } from "@/components/sections/research-projects-client";
 import { TeamGridClient } from "@/components/sections/team-grid-client";
-import { JournalClubCallout } from "@/components/sections/journal-club-callout";
+import { EventsSection } from "@/components/sections/events-section";
 import { FromTheLabSection } from "@/components/sections/from-the-lab-section";
 import { CollaboratorMarquee } from "@/components/lab/collaborator-marquee";
 import { Reveal } from "@/components/motion/reveal";
 import { JoinUsStrip } from "@/components/sections/join-us-strip";
 
 export default function HomePage() {
-  const nextEvent = events.find((e) => e.slug === "aist-journal-club-may-2026");
   const recentNews = allNews.slice(0, 3);
   const sortedCollaborators = [...collaborators].sort((a, b) => a.order - b.order);
 
@@ -63,27 +62,29 @@ export default function HomePage() {
 
       <CircuitDivider />
 
-      {/* Journal Club callout — between Team and From the Lab */}
-      <JournalClubCallout nextEvent={nextEvent} />
+      {/* 05 — Upcoming Events */}
+      <Section code="05" label="Events" id="events">
+        <EventsSection events={upcomingEvents} />
+      </Section>
 
       <CircuitDivider />
 
-      {/* 05 — From the lab */}
-      <Section code="05" label="From the lab" id="news">
+      {/* 06 — From the lab (news) */}
+      <Section code="06" label="From the lab" id="news">
         <FromTheLabSection newsItems={recentNews} />
       </Section>
 
       <CircuitDivider />
 
-      {/* 06 — Collaborators */}
-      <Section code="06" label="Collaborators" id="collaborators">
+      {/* 07 — Collaborators */}
+      <Section code="07" label="Collaborators" id="collaborators">
         <Reveal showMark>
           <p className="eyebrow mb-8">Collaborating institutions</p>
         </Reveal>
         <CollaboratorMarquee items={sortedCollaborators} />
       </Section>
 
-      {/* 07 — Join Us */}
+      {/* 08 — Join Us */}
       <div
         id="join"
         style={{ background: "var(--color-navy-1000)" }}

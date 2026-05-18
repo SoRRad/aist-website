@@ -19,7 +19,7 @@ export const stats: Stat[] = [
   {
     value: activeTeamMembers.length,
     label: "Team members",
-    sublabel: "Current AIST people and collaborators",
+    sublabel: "Current A-STAR people and collaborators",
   },
   {
     value: activeProjects.length,

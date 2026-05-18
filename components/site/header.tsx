@@ -6,8 +6,8 @@ import * as React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import { Home } from "lucide-react";
 import { primaryNav } from "@/lib/navigation";
-import { hasRecentNews } from "@/lib/news";
 import { projects } from "@/lib/projects";
 import { logos } from "@/lib/logos";
 import { Logo } from "@/components/site/logo";
@@ -46,24 +46,31 @@ export function SiteHeader() {
             scrolled ? "h-10" : "h-12",
           )}
         >
-          {/* Logo */}
-          <Link href="/" aria-label="AIST home" className="shrink-0">
-            {/* Desktop: horizontal lockup — 32px default, 26px scrolled */}
+          {/* Logo — fades out on scroll; clicking always goes home */}
+          <Link
+            href="/"
+            aria-label="A-STAR home"
+            className={cn(
+              "shrink-0 transition-all duration-300",
+              scrolled ? "pointer-events-none opacity-0" : "opacity-100",
+            )}
+          >
+            {/* Desktop: horizontal lockup */}
             <Logo
               variant="horizontal"
               priority
-              width={scrolled ? 96 : 112}
-              height={scrolled ? 24 : 28}
-              className={cn("hidden sm:block w-auto transition-all duration-200", scrolled ? "h-6" : "h-7")}
+              width={112}
+              height={28}
+              className="hidden w-auto sm:block"
             />
-            {/* Mobile: mark only — 24px default, 20px scrolled */}
+            {/* Mobile: mark only */}
             <Image
               src={logos.markNeutral}
-              alt="AIST"
-              width={scrolled ? 20 : 24}
-              height={scrolled ? 20 : 24}
+              alt="A-STAR"
+              width={24}
+              height={24}
               priority
-              className={cn("block w-auto sm:hidden transition-all duration-200", scrolled ? "h-5" : "h-6")}
+              className="block w-auto sm:hidden"
             />
           </Link>
 
@@ -73,31 +80,27 @@ export function SiteHeader() {
               {primaryNav.map((item) => {
                 const active = isActive(item.href);
                 const isResearch = item.href === "/research";
+                const isHome = item.href === "/";
 
                 if (isResearch) {
-                  return (
-                    <ProjectsNavItem key={item.href} active={active} />
-                  );
+                  return <ProjectsNavItem key={item.href} active={active} />;
                 }
 
-                const isNews = item.href === "/news";
-                const isHome = item.href === "/";
-                const showNewsDot = isNews && hasRecentNews();
+                const handleHomeClick =
+                  isHome && pathname === "/"
+                    ? (e: React.MouseEvent) => {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }
+                    : undefined;
 
-                // Home item: scroll-to-top on home page, navigate otherwise
-                const handleHomeClick = isHome && pathname === "/"
-                  ? (e: React.MouseEvent) => {
-                      e.preventDefault();
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  : undefined;
-
-              return (
+                return (
                   <NavigationMenu.Item key={item.href}>
                     <NavigationMenu.Link asChild>
                       <Link
                         href={item.href}
                         onClick={handleHomeClick}
+                        aria-label={isHome ? "Go to homepage" : undefined}
                         className={cn(
                           "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
                           active
@@ -105,12 +108,11 @@ export function SiteHeader() {
                             : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]",
                         )}
                       >
-                        {item.title}
-                        {showNewsDot && (
-                          <span
-                            className="absolute right-1 top-1.5 h-1.5 w-1.5 rounded-full bg-[var(--color-coral-400)]"
-                            aria-label="Recent news"
-                          />
+                        {/* Home renders as icon only */}
+                        {isHome ? (
+                          <Home className="h-4 w-4" />
+                        ) : (
+                          item.title
                         )}
                         {active && (
                           <motion.span
@@ -214,4 +216,3 @@ function ProjectsNavItem({ active }: { active: boolean }) {
     </NavigationMenu.Item>
   );
 }
-

@@ -62,10 +62,10 @@ const IRB_OPTIONS = [
 ];
 
 const JOURNAL_CLUB_PLACEHOLDER =
-  "Please add me to the AIST Journal Club distribution list. My background: [your role, institution]";
+  "Please add me to the A-STAR Journal Club distribution list. My background: [your role, institution]";
 
 const NEWSLETTER_PLACEHOLDER =
-  "Please add me to the AIST Lab newsletter. My background: [your role and institution]";
+  "Please add me to the A-STAR Lab newsletter. My background: [your role and institution]";
 
 export function ContactForm() {
   const searchParams = useSearchParams();
