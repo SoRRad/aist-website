@@ -33,10 +33,8 @@ export function SiteFooter() {
             <Link href="/" className="inline-flex items-center">
               <Logo
                 variant="horizontal"
-                width={180}
-                height={40}
-                sizes="180px"
-                className="w-[180px]"
+                sizes="200px"
+                className="w-[200px]"
               />
             </Link>
 

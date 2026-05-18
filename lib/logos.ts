@@ -1,18 +1,26 @@
 /**
  * Canonical logo paths. Always import from here instead of hardcoding paths.
  *
- * Current production A-STAR logo assets are the PNG files in
- * public/logos/astar. The SVG files in the legacy folder are outdated and
- * should not be used until regenerated from the new logo.
+ * Current production A-STAR logo assets are WebP files (with transparency) in
+ * public/logos/astar. The source PNG files are kept alongside for reference.
+ * The SVG files in the legacy folder are outdated and must not be used in
+ * active UI code until regenerated from the new logo artwork.
+ *
+ * Naming convention:
+ *   "Dark"  suffix = dark-ink logo intended for light/white backgrounds (onLight).
+ *   "Light" suffix = light-ink logo intended for dark backgrounds (onDark).
  */
 export const logos = {
-  fullStackedDark: "/logos/astar/astar-stacked-dark.png",
-  fullStackedLight: "/logos/astar/astar-stacked-light.png",
+  // Mark-only (square)
+  markDark: "/logos/astar/astar-mark-dark.webp",       // onLight — dark mark, transparent bg
+  markLight: "/logos/astar/astar-mark-light.webp",     // onDark  — light mark, transparent bg
+  markNeutral: "/logos/astar/astar-mark-neutral.webp", // neutral variant (transparent bg)
 
-  fullHorizontalDark: "/logos/astar/astar-horizontal-dark.png",
-  fullHorizontalLight: "/logos/astar/astar-horizontal-light.png",
+  // Full horizontal wordmark
+  fullHorizontalDark: "/logos/astar/astar-horizontal-dark.webp",   // onLight
+  fullHorizontalLight: "/logos/astar/astar-horizontal-light.webp", // onDark
 
-  markDark: "/logos/astar/astar-mark-dark.png",
-  markLight: "/logos/astar/astar-mark-light.png",
-  markNeutral: "/logos/astar/astar-mark-neutral.png",
+  // Full stacked layout
+  fullStackedDark: "/logos/astar/astar-stacked-dark.webp",   // onLight
+  fullStackedLight: "/logos/astar/astar-stacked-light.webp", // onDark
 } as const;
